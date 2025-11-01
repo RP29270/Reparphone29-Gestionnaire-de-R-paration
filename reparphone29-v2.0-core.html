@@ -1,0 +1,2853 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Réparations - Reparphone29</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #1a1a1a 75%, #000000 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #1a1a1a 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .form-section h2 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .list-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .list-header h2 {
+            color: #ff6b35;
+            font-size: 1.5em;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        .stat-card .label {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-filter input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .search-filter select {
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .repairs-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .repair-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b35;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .repair-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .repair-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .repair-id {
+            background: #ff6b35;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .repair-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .repair-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .repair-info span {
+            color: #6c757d;
+        }
+
+        .repair-info strong {
+            color: #495057;
+        }
+
+        .repair-description {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: #495057;
+        }
+
+        .repair-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .repair-actions select {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9em;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-recu {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-en-cours {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-termine {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-restitue {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                flex-direction: column;
+            }
+
+            .search-filter {
+                flex-direction: column;
+            }
+
+            .repair-info {
+                grid-template-columns: 1fr;
+            }
+
+            .repair-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .modal-header h2 {
+            color: #ff6b35;
+            font-size: 1.5em;
+        }
+
+        .close-btn {
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20BA5A;
+        }
+
+        .btn-email {
+            background: #EA4335;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-email:hover {
+            background: #D33426;
+        }
+
+        .notification-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .notification-section h4 {
+            color: #ff6b35;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        /* Styles pour les alertes */
+        .alert-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+            z-index: 2000;
+        }
+
+        .alert-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border-left: 5px solid #ffa500;
+            animation: slideInRight 0.5s;
+        }
+
+        .alert-box.critical {
+            border-left-color: #dc3545;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .alert-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #212529;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        .alert-close:hover {
+            color: #000;
+        }
+
+        .alert-body {
+            color: #495057;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .alert-list {
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .alert-item {
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .alert-item strong {
+            color: #212529;
+        }
+
+        .delay-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .delay-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .delay-critical {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .alert-container {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+        }
+
+        /* Styles pour les statistiques */
+        .stats-section {
+            background: white;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stats-section h2 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .stat-box h3 {
+            color: #212529;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            color: #212529;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .stat-value.positive {
+            color: #28a745;
+        }
+
+        .stat-value.negative {
+            color: #dc3545;
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bar-label {
+            min-width: 100px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .bar-container {
+            flex: 1;
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 10px;
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .comparison-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .comparison-item h4 {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .comparison-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        .comparison-change {
+            margin-top: 10px;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Styles pour l'autocomplétion */
+        .autocomplete-container {
+            position: relative;
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #ff6b35;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .autocomplete-list.show {
+            display: block;
+        }
+
+        .autocomplete-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #e9ecef;
+            transition: background 0.2s;
+        }
+
+        .autocomplete-item:hover {
+            background: #fff3e6;
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-item strong {
+            color: #ff6b35;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .autocomplete-item small {
+            color: #6c757d;
+            font-size: 0.85em;
+        }
+
+        .history-badge {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .history-badge.device {
+            background: #17a2b8;
+        }
+
+        .client-history-alert {
+            background: #fff3e6;
+            border: 2px solid #ff6b35;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            animation: fadeIn 0.5s;
+        }
+
+        .client-history-alert h4 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .client-history-alert p {
+            margin: 5px 0;
+            color: #495057;
+            font-size: 0.9em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Système d'étoiles */
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .star {
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+            filter: grayscale(100%);
+            opacity: 0.3;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        .star.active {
+            filter: grayscale(0%);
+            opacity: 1;
+            animation: starPop 0.3s;
+        }
+
+        @keyframes starPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .client-rating-display {
+            display: inline-flex;
+            gap: 2px;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+
+        .rating-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .rating-1 {
+            background: #dc3545;
+            color: white;
+        }
+
+        .rating-2 {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .rating-3 {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .rating-4 {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        /* Badges de priorité */
+        .priority-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .priority-Normal {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .priority-Urgent {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .priority-Express {
+            background: #f8d7da;
+            color: #721c24;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Badges de paiement */
+        .payment-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .payment-attente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .payment-acompte {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .payment-paye {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        /* Boutons d'export */
+        .export-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-export {
+            background: #28a745;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-export:hover {
+            background: #218838;
+        }
+
+        .btn-import {
+            background: #17a2b8;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-import:hover {
+            background: #138496;
+        }
+
+        /* Zone de photos */
+        .photos-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .photo-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid #dee2e6;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .photo-thumb:hover {
+            transform: scale(1.1);
+            border-color: #ff6b35;
+        }
+
+        /* Modal photo */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        .photo-modal img {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5vh;
+        }
+
+        .photo-modal .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .notification-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .notification-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Styles pour l'étiquette imprimable */
+        .label-print {
+            display: none;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .label-print, .label-print * {
+                visibility: visible;
+            }
+            .label-print {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                display: block !important;
+            }
+        }
+
+        .label-content {
+            width: 62mm;
+            padding: 5mm;
+            border: 2px solid #000;
+            font-family: Arial, sans-serif;
+            background: white;
+            margin: 20px auto;
+        }
+
+        .label-header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 3mm;
+            margin-bottom: 3mm;
+        }
+
+        .label-header h1 {
+            font-size: 18pt;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .label-header p {
+            font-size: 8pt;
+            margin: 2px 0;
+        }
+
+        .label-body {
+            font-size: 11pt;
+        }
+
+        .label-row {
+            margin: 2mm 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .label-row strong {
+            min-width: 45px;
+            font-weight: bold;
+        }
+
+        .label-id {
+            text-align: center;
+            font-size: 20pt;
+            font-weight: bold;
+            background: #000;
+            color: #fff;
+            padding: 2mm;
+            margin: 3mm 0;
+        }
+
+        .label-footer {
+            border-top: 2px solid #000;
+            margin-top: 3mm;
+            padding-top: 2mm;
+            text-align: center;
+            font-size: 8pt;
+        }
+
+        .btn-print {
+            background: #28a745;
+        }
+
+        .btn-print:hover {
+            background: #218838;
+        }
+
+        /* Badge type commande */
+        .type-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 5px;
+            background: #17a2b8;
+            color: white;
+        }
+
+        /* Codes sécurisés */
+        .secure-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            border: 2px solid #ffc107;
+        }
+
+        .code-hidden {
+            filter: blur(5px);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .code-visible {
+            color: #856404;
+        }
+
+        /* Bouton action spécial commande */
+        .btn-part-received {
+            background: #17a2b8;
+        }
+
+        .btn-part-received:hover {
+            background: #138496;
+        }
+
+        .btn-receive-device {
+            background: #28a745;
+        }
+
+        .btn-receive-device:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Reparphone29</h1>
+            <p>Gestion des Réparations - Smartphones • Tablettes • Ordinateurs • Consoles</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">📍 12 Rue Oberhausen, 29270 Carhaix-Plouguer | 📞 02 29 25 01 11 | 📱 06 45 06 55 15</p>
+        </header>
+
+        <!-- Conteneur d'alertes -->
+        <div class="alert-container" id="alertContainer"></div>
+
+        <div class="main-content">
+            <!-- Formulaire de réception -->
+            <div class="form-section">
+                <h2>📝 Nouvelle Réparation</h2>
+                <form id="repairForm">
+                    <div class="form-group">
+                        <label for="repairType">Type de Dossier *</label>
+                        <select id="repairType" required onchange="toggleRepairType()">
+                            <option value="Réparation">📱 Réparation Classique (avec appareil)</option>
+                            <option value="Commande">🛒 Commande Pièce (sans appareil)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group autocomplete-container">
+                        <label for="clientName">Nom du Client *</label>
+                        <input type="text" id="clientName" required autocomplete="off">
+                        <div class="autocomplete-list" id="clientNameList"></div>
+                    </div>
+
+                    <div class="form-group autocomplete-container">
+                        <label for="clientPhone">Téléphone *</label>
+                        <input type="tel" id="clientPhone" required autocomplete="off">
+                        <div class="autocomplete-list" id="clientPhoneList"></div>
+                    </div>
+
+                    <div class="form-group autocomplete-container">
+                        <label for="clientEmail">Email</label>
+                        <input type="email" id="clientEmail" autocomplete="off">
+                        <div class="autocomplete-list" id="clientEmailList"></div>
+                    </div>
+
+                    <!-- Zone d'affichage de l'historique client -->
+                    <div id="clientHistoryDisplay"></div>
+
+                    <div class="form-group">
+                        <label for="contactPreference">Préférence de Contact *</label>
+                        <select id="contactPreference" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="WhatsApp">💬 WhatsApp</option>
+                            <option value="Email">📧 Email</option>
+                            <option value="Les deux">📱 Les deux (WhatsApp + Email)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deviceType">Type d'Appareil *</label>
+                        <select id="deviceType" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Smartphone">📱 Smartphone</option>
+                            <option value="Tablette">📱 Tablette</option>
+                            <option value="Console Portable">🎮 Console Portable</option>
+                            <option value="Ordinateur Portable">💻 Ordinateur Portable</option>
+                            <option value="Ordinateur de Bureau">🖥️ Ordinateur de Bureau</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group autocomplete-container">
+                        <label for="deviceBrand">Marque/Modèle *</label>
+                        <input type="text" id="deviceBrand" placeholder="Ex: iPhone 13, Samsung Galaxy S21..." required autocomplete="off">
+                        <div class="autocomplete-list" id="deviceBrandList"></div>
+                    </div>
+
+                    <div class="form-group autocomplete-container">
+                        <label for="imeiSn">IMEI / Numéro de Série</label>
+                        <input type="text" id="imeiSn" placeholder="Ex: 123456789012345" autocomplete="off">
+                        <div class="autocomplete-list" id="imeiSnList"></div>
+                    </div>
+
+                    <!-- Codes PIN et Déverrouillage -->
+                    <div class="form-group" id="pinCodeGroup">
+                        <label for="pinCode">🔐 Code PIN</label>
+                        <input type="text" id="pinCode" placeholder="Ex: 1234" maxlength="10">
+                    </div>
+
+                    <div class="form-group" id="unlockCodeGroup">
+                        <label for="unlockCode">🔓 Code de Déverrouillage (schéma/mot de passe)</label>
+                        <input type="text" id="unlockCode" placeholder="Ex: ABCD1234">
+                    </div>
+
+                    <!-- Zone d'affichage de l'historique appareil -->
+                    <div id="deviceHistoryDisplay"></div>
+
+                    <div class="form-group">
+                        <label for="problemType">Type de Panne *</label>
+                        <select id="problemType" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Démarre pas">❌ Démarre pas</option>
+                            <option value="Écran">🖥️ Écran</option>
+                            <option value="Batterie">🔋 Batterie</option>
+                            <option value="Micro">🎤 Micro</option>
+                            <option value="Écouteur interne">🎧 Écouteur interne</option>
+                            <option value="Haut parleur">🔊 Haut parleur</option>
+                            <option value="Charge pas">⚡ Charge pas</option>
+                            <option value="Oxydation">💧 Oxydation</option>
+                            <option value="Devis assurance">📋 Devis assurance</option>
+                            <option value="Autre">🔧 Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="partNameGroup" style="display: none;">
+                        <label for="partName">🛒 Nom de la Pièce Commandée *</label>
+                        <input type="text" id="partName" placeholder="Ex: Écran iPhone 12, Batterie Samsung S21">
+                        <small style="color: #6c757d; display: block; margin-top: 5px;">
+                            Pour les commandes de pièces sans appareil
+                        </small>
+                    </div>
+
+                    <div class="form-group" id="appointmentDateGroup" style="display: none;">
+                        <label for="appointmentDate">📅 Date RDV Client (optionnel)</label>
+                        <input type="datetime-local" id="appointmentDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="problemDescription">Description Détaillée du Problème *</label>
+                        <textarea id="problemDescription" placeholder="Décrivez le problème rencontré..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientComments">Commentaires du Client</label>
+                        <textarea id="clientComments" placeholder="Remarques, demandes spécifiques du client..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="receivedDate">Date et Heure de Réception *</label>
+                        <input type="datetime-local" id="receivedDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="technicianReceived">Technicien à la Réception *</label>
+                        <select id="technicianReceived" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Issam">👨‍🔧 Issam (Technicien 1)</option>
+                            <option value="Ramy">👨‍🔧 Ramy (Technicien 2)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientRating">Note Client (comportement)</label>
+                        <div class="star-rating" id="starRating">
+                            <span class="star" data-rating="1">⭐</span>
+                            <span class="star" data-rating="2">⭐</span>
+                            <span class="star" data-rating="3">⭐</span>
+                            <span class="star" data-rating="4">⭐</span>
+                        </div>
+                        <input type="hidden" id="clientRating" value="0">
+                        <small style="color: #6c757d; display: block; margin-top: 5px;">
+                            ⭐ = Très difficile | ⭐⭐ = Difficile | ⭐⭐⭐ = Correct | ⭐⭐⭐⭐ = Sympa
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estimatedPrice">Prix Estimé (€)</label>
+                        <input type="number" id="estimatedPrice" step="0.01" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priorité *</label>
+                        <select id="priority" required>
+                            <option value="Normal">📋 Normal</option>
+                            <option value="Urgent">⚡ Urgent</option>
+                            <option value="Express">🔥 Express (même jour)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estimatedEndDate">Date de Fin Estimée</label>
+                        <input type="date" id="estimatedEndDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentStatus">Statut de Paiement *</label>
+                        <select id="paymentStatus" required>
+                            <option value="En attente">⏳ En attente</option>
+                            <option value="Acompte">💵 Acompte versé</option>
+                            <option value="Payé">✅ Payé</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="depositAmount">Montant Acompte (€)</label>
+                        <input type="number" id="depositAmount" step="0.01" min="0" placeholder="Si acompte versé">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photos">Photos Appareil (avant réparation)</label>
+                        <input type="file" id="photos" accept="image/*" multiple>
+                        <small style="color: #6c757d; display: block; margin-top: 5px;">
+                            📸 Vous pouvez ajouter plusieurs photos
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn">➕ Enregistrer la Réparation</button>
+                </form>
+            </div>
+
+            <!-- Liste des réparations -->
+            <div class="list-section">
+                <div class="list-header">
+                    <h2>📋 Réparations en Cours</h2>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="number" id="statTotal">0</div>
+                        <div class="label">Total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="statEnCours">0</div>
+                        <div class="label">En Cours</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="statTermine">0</div>
+                        <div class="label">Terminées</div>
+                    </div>
+                </div>
+
+                <div class="search-filter">
+                    <input type="text" id="searchInput" placeholder="🔍 Rechercher par nom, téléphone, appareil, marque, IMEI/SN...">
+                    <select id="filterStatus">
+                        <option value="">Tous les statuts</option>
+                        <option value="Reçu">Reçu</option>
+                        <option value="En cours">En cours</option>
+                        <option value="Terminé">Terminé</option>
+                        <option value="Restitué">Restitué</option>
+                    </select>
+                </div>
+
+                <div class="repairs-list" id="repairsList">
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 2a3 3 0 0 0-3 3v2H5a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V10a3 3 0 0 0-3-3h-1V5a3 3 0 0 0-3-3H9z"/>
+                            <path d="M8 7V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/>
+                        </svg>
+                        <h3>Aucune réparation enregistrée</h3>
+                        <p>Commencez par ajouter une nouvelle réparation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Export/Import -->
+        <div class="stats-section">
+            <h2>💾 Sauvegarde & Export des Données</h2>
+            <div class="export-section">
+                <button class="btn btn-export" onclick="exportToJSON()">📥 Export Backup (JSON)</button>
+                <button class="btn btn-export" onclick="exportToCSV()">📊 Export Excel (CSV)</button>
+                <button class="btn btn-import" onclick="document.getElementById('importFile').click()">📤 Importer Backup</button>
+                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+            </div>
+            <p style="text-align: center; color: #6c757d; margin-top: 15px; font-size: 0.9em;">
+                💡 Pensez à faire un backup régulier de vos données !
+            </p>
+        </div>
+
+        <!-- Section Statistiques -->
+        <div class="stats-section">
+            <h2>📊 Statistiques et Performance</h2>
+            
+            <!-- Performance Globale du Magasin -->
+            <div class="stat-box" style="border-left-color: #28a745; margin-bottom: 30px;">
+                <h3>🏪 Performance Globale - Reparphone29</h3>
+                <div class="comparison-box">
+                    <div class="comparison-item">
+                        <h4>Ce Mois</h4>
+                        <div class="comparison-value" id="currentMonthTotal">0</div>
+                        <p style="color: #6c757d; margin-top: 5px;">réparations</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>Mois Dernier</h4>
+                        <div class="comparison-value" style="color: #6c757d;" id="lastMonthTotal">0</div>
+                        <p style="color: #6c757d; margin-top: 5px;">réparations</p>
+                    </div>
+                </div>
+                <div class="comparison-change" id="monthComparison" style="text-align: center; margin-top: 20px;">
+                    <!-- Comparaison dynamique -->
+                </div>
+                
+                <div class="stat-row">
+                    <span class="stat-label">Délai moyen de réparation</span>
+                    <span class="stat-value" id="globalAvgDelay">0 jours</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total réparations (tous les temps)</span>
+                    <span class="stat-value" id="globalTotalRepairs">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">En cours actuellement</span>
+                    <span class="stat-value" id="globalActiveRepairs">0</span>
+                </div>
+                <div class="stat-row" style="border-top: 2px solid #28a745; padding-top: 15px; margin-top: 15px;">
+                    <span class="stat-label">💰 CA ce mois</span>
+                    <span class="stat-value" style="color: #28a745; font-size: 1.3em;" id="currentMonthRevenue">0 €</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">💵 En attente de paiement</span>
+                    <span class="stat-value" style="color: #856404;" id="pendingPayments">0 €</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">💸 Acomptes versés</span>
+                    <span class="stat-value" style="color: #084298;" id="totalDeposits">0 €</span>
+                </div>
+            </div>
+
+            <!-- Statistiques par Technicien -->
+            <h3 style="color: #495057; margin-bottom: 20px; font-size: 1.4em;">👨‍🔧 Performance par Technicien</h3>
+            <div class="stats-grid" id="technicianStats">
+                <!-- Les stats seront générées dynamiquement -->
+            </div>
+
+            <!-- Graphique comparatif -->
+            <div class="chart-container">
+                <h3 style="color: #495057; margin-bottom: 20px;">📈 Comparaison des Techniciens</h3>
+                <div class="bar-chart" id="technicianChart">
+                    <!-- Le graphique sera généré dynamiquement -->
+                </div>
+            </div>
+
+            <!-- TOP Pannes et Appareils -->
+            <div class="stats-grid" style="margin-top: 30px;">
+                <div class="chart-container">
+                    <h3 style="color: #495057; margin-bottom: 20px;">🔧 TOP 10 Pannes</h3>
+                    <div class="bar-chart" id="topProblemsChart">
+                        <!-- Généré dynamiquement -->
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3 style="color: #495057; margin-bottom: 20px;">📱 TOP 10 Appareils Réparés</h3>
+                    <div class="bar-chart" id="topDevicesChart">
+                        <!-- Généré dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour les commentaires -->
+    <div id="commentsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💬 Commentaires Technicien</h2>
+                <span class="close-btn" onclick="closeCommentsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modalTechnicianComments">Commentaires Technicien (pendant la réparation)</label>
+                    <textarea id="modalTechnicianComments" rows="4" placeholder="Notes techniques, pièces changées, observations..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="modalReturnComments">Commentaires de Restitution (à la livraison)</label>
+                    <textarea id="modalReturnComments" rows="4" placeholder="État final, recommandations au client, garantie..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-small" onclick="closeCommentsModal()">Annuler</button>
+                <button class="btn btn-small" onclick="saveComments()">💾 Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zone d'impression d'étiquette (cachée) -->
+    <div class="label-print" id="labelPrint">
+        <div class="label-content">
+            <div class="label-header">
+                <h1>REPARPHONE29</h1>
+                <p>📞 02 29 25 01 11</p>
+            </div>
+            <div class="label-id" id="labelId">#0000</div>
+            <div class="label-body">
+                <div class="label-row">
+                    <strong>Client:</strong>
+                    <span id="labelClient">Nom du client</span>
+                </div>
+                <div class="label-row">
+                    <strong>Tél:</strong>
+                    <span id="labelPhone">00 00 00 00 00</span>
+                </div>
+                <div class="label-row" id="labelPinRow" style="display: none;">
+                    <strong>🔐 PIN:</strong>
+                    <span id="labelPin" style="font-size: 14pt; font-weight: bold;">----</span>
+                </div>
+                <div class="label-row" id="labelUnlockRow" style="display: none;">
+                    <strong>🔓 Code:</strong>
+                    <span id="labelUnlock" style="font-size: 14pt; font-weight: bold;">----</span>
+                </div>
+                <div class="label-row">
+                    <strong>Panne:</strong>
+                    <span id="labelProblem">Type de panne</span>
+                </div>
+                <div class="label-row">
+                    <strong>Prix:</strong>
+                    <span id="labelPrice" style="font-size: 16pt; font-weight: bold;">0.00 €</span>
+                </div>
+            </div>
+            <div class="label-footer">
+                <p>www.reparphone29.fr</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal photo -->
+    <div class="photo-modal" id="photoModal">
+        <span class="close-btn" onclick="closePhotoModal()">&times;</span>
+        <img id="photoModalImg" src="" alt="Photo">
+    </div>
+
+    <script>
+        // Stockage des données
+        let repairs = JSON.parse(localStorage.getItem('repairs')) || [];
+        let nextId = parseInt(localStorage.getItem('nextId')) || 1;
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            setCurrentDateTime();
+            checkDelaysAndAlert();
+            renderRepairs();
+            updateStats();
+            updateTechnicianStats();
+            setupAutocomplete();
+        });
+
+        // Configuration de l'autocomplétion
+        function setupAutocomplete() {
+            // Gestion du système d'étoiles
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    document.getElementById('clientRating').value = rating;
+                    
+                    // Mettre à jour l'affichage des étoiles
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Autocomplétion pour le nom du client
+            document.getElementById('clientName').addEventListener('input', function(e) {
+                showAutocomplete('clientName', e.target.value, 'clientNameList');
+            });
+
+            // Autocomplétion pour le téléphone
+            document.getElementById('clientPhone').addEventListener('input', function(e) {
+                showAutocomplete('clientPhone', e.target.value, 'clientPhoneList');
+            });
+
+            // Autocomplétion pour l'email
+            document.getElementById('clientEmail').addEventListener('input', function(e) {
+                showAutocomplete('clientEmail', e.target.value, 'clientEmailList');
+            });
+
+            // Autocomplétion pour le modèle
+            document.getElementById('deviceBrand').addEventListener('input', function(e) {
+                showAutocomplete('deviceBrand', e.target.value, 'deviceBrandList');
+            });
+
+            // Autocomplétion pour l'IMEI/SN
+            document.getElementById('imeiSn').addEventListener('input', function(e) {
+                showAutocomplete('imeiSn', e.target.value, 'imeiSnList');
+                if (e.target.value.length >= 5) {
+                    showDeviceHistory(e.target.value);
+                } else {
+                    document.getElementById('deviceHistoryDisplay').innerHTML = '';
+                }
+            });
+
+            // Fermer les listes d'autocomplétion en cliquant ailleurs
+            document.addEventListener('click', function(e) {
+                if (!e.target.matches('input')) {
+                    document.querySelectorAll('.autocomplete-list').forEach(list => {
+                        list.classList.remove('show');
+                    });
+                }
+            });
+        }
+
+        // Afficher les suggestions d'autocomplétion
+        function showAutocomplete(field, value, listId) {
+            const list = document.getElementById(listId);
+            
+            if (value.length < 2) {
+                list.classList.remove('show');
+                return;
+            }
+
+            // Rechercher dans les réparations existantes
+            const uniqueValues = new Set();
+            const suggestions = [];
+
+            repairs.forEach(repair => {
+                let fieldValue = '';
+                let displayInfo = '';
+
+                switch(field) {
+                    case 'clientName':
+                        fieldValue = repair.clientName;
+                        displayInfo = `${repair.clientPhone} | ${repair.deviceBrand}`;
+                        break;
+                    case 'clientPhone':
+                        fieldValue = repair.clientPhone;
+                        displayInfo = `${repair.clientName} | ${repair.deviceBrand}`;
+                        break;
+                    case 'clientEmail':
+                        if (repair.clientEmail) {
+                            fieldValue = repair.clientEmail;
+                            displayInfo = `${repair.clientName} | ${repair.clientPhone}`;
+                        }
+                        break;
+                    case 'deviceBrand':
+                        fieldValue = repair.deviceBrand;
+                        displayInfo = `${repair.deviceType}`;
+                        break;
+                    case 'imeiSn':
+                        if (repair.imeiSn) {
+                            fieldValue = repair.imeiSn;
+                            displayInfo = `${repair.deviceBrand} | ${repair.clientName}`;
+                        }
+                        break;
+                }
+
+                if (fieldValue && fieldValue.toLowerCase().includes(value.toLowerCase()) && !uniqueValues.has(fieldValue)) {
+                    uniqueValues.add(fieldValue);
+                    suggestions.push({
+                        value: fieldValue,
+                        info: displayInfo,
+                        repair: repair
+                    });
+                }
+            });
+
+            if (suggestions.length === 0) {
+                list.classList.remove('show');
+                return;
+            }
+
+            list.innerHTML = suggestions.slice(0, 5).map(s => `
+                <div class="autocomplete-item" onclick="selectAutocomplete('${field}', ${JSON.stringify(s.repair).replace(/"/g, '&quot;')})">
+                    <strong>${s.value}</strong>
+                    <small>${s.info}</small>
+                </div>
+            `).join('');
+
+            list.classList.add('show');
+        }
+
+        // Sélectionner une suggestion d'autocomplétion
+        function selectAutocomplete(field, repair) {
+            // Remplir tous les champs avec les données du client
+            document.getElementById('clientName').value = repair.clientName;
+            document.getElementById('clientPhone').value = repair.clientPhone;
+            if (repair.clientEmail) {
+                document.getElementById('clientEmail').value = repair.clientEmail;
+            }
+            if (repair.contactPreference) {
+                document.getElementById('contactPreference').value = repair.contactPreference;
+            }
+            // Pré-remplir la notation si elle existe
+            if (repair.clientRating > 0) {
+                document.getElementById('clientRating').value = repair.clientRating;
+                document.querySelectorAll('.star').forEach((s, index) => {
+                    if (index < repair.clientRating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            }
+            if (field === 'deviceBrand' || field === 'imeiSn') {
+                document.getElementById('deviceType').value = repair.deviceType;
+                document.getElementById('deviceBrand').value = repair.deviceBrand;
+                if (repair.imeiSn) {
+                    document.getElementById('imeiSn').value = repair.imeiSn;
+                }
+            }
+
+            // Fermer toutes les listes
+            document.querySelectorAll('.autocomplete-list').forEach(list => {
+                list.classList.remove('show');
+            });
+
+            // Afficher l'historique du client
+            showClientHistory(repair.clientName, repair.clientPhone);
+            
+            // Si IMEI/SN rempli, afficher l'historique de l'appareil
+            if (repair.imeiSn) {
+                showDeviceHistory(repair.imeiSn);
+            }
+        }
+
+        // Afficher l'historique du client
+        function showClientHistory(name, phone) {
+            const clientRepairs = repairs.filter(r => 
+                r.clientName === name || r.clientPhone === phone
+            );
+
+            if (clientRepairs.length === 0) return;
+
+            // Calculer la note moyenne
+            const ratings = clientRepairs.filter(r => r.clientRating > 0).map(r => r.clientRating);
+            const avgRating = ratings.length > 0 ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : 0;
+            
+            let ratingDisplay = '';
+            if (avgRating > 0) {
+                const stars = '⭐'.repeat(Math.round(avgRating));
+                const ratingClass = avgRating <= 1.5 ? 'rating-1' : 
+                                   avgRating <= 2.5 ? 'rating-2' : 
+                                   avgRating <= 3.5 ? 'rating-3' : 'rating-4';
+                const ratingText = avgRating <= 1.5 ? '😠 Client très difficile' : 
+                                  avgRating <= 2.5 ? '😐 Client difficile' : 
+                                  avgRating <= 3.5 ? '😊 Client correct' : '😃 Client sympa';
+                ratingDisplay = `<p><span class="rating-badge ${ratingClass}">${stars} ${ratingText}</span></p>`;
+            }
+
+            const historyHTML = `
+                <div class="client-history-alert">
+                    <h4>📜 Historique Client</h4>
+                    <p><strong>👤 ${name}</strong> <span class="history-badge">${clientRepairs.length} réparation(s)</span></p>
+                    ${ratingDisplay}
+                    <p>📞 Dernière visite : ${formatDateShort(clientRepairs[0].receivedDate)}</p>
+                    <p>🔧 Appareils réparés : ${[...new Set(clientRepairs.map(r => r.deviceBrand))].join(', ')}</p>
+                </div>
+            `;
+
+            document.getElementById('clientHistoryDisplay').innerHTML = historyHTML;
+        }
+
+        // Afficher l'historique de l'appareil par IMEI/SN
+        function showDeviceHistory(imei) {
+            const deviceRepairs = repairs.filter(r => r.imeiSn === imei);
+
+            if (deviceRepairs.length === 0) {
+                document.getElementById('deviceHistoryDisplay').innerHTML = '';
+                return;
+            }
+
+            const historyHTML = `
+                <div class="client-history-alert" style="border-color: #17a2b8; background: #e7f7ff;">
+                    <h4 style="color: #17a2b8;">📱 Historique Appareil</h4>
+                    <p><strong>🔢 IMEI/SN : ${imei}</strong> <span class="history-badge device">${deviceRepairs.length} réparation(s)</span></p>
+                    <p>🏷️ Modèle : ${deviceRepairs[0].deviceBrand}</p>
+                    <p>🔧 Pannes précédentes : ${[...new Set(deviceRepairs.map(r => r.problemType))].join(', ')}</p>
+                    ${deviceRepairs.length > 1 ? '<p style="color: #dc3545; font-weight: bold;">⚠️ Cet appareil a déjà été réparé plusieurs fois!</p>' : ''}
+                </div>
+            `;
+
+            document.getElementById('deviceHistoryDisplay').innerHTML = historyHTML;
+        }
+
+        // Définir la date et heure actuelle
+        function setCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const dateTimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
+            document.getElementById('receivedDate').value = dateTimeString;
+        }
+
+        // Vérifier les délais et afficher les alertes
+        function checkDelaysAndAlert() {
+            const now = new Date();
+            const oneDayMs = 24 * 60 * 60 * 1000;
+            
+            // Filtrer les réparations non restituées
+            const activeRepairs = repairs.filter(r => r.status !== 'Restitué');
+            
+            const weekOld = []; // 7 jours et plus
+            const tenDaysOld = []; // 10 jours et plus
+            
+            activeRepairs.forEach(repair => {
+                const receivedDate = new Date(repair.receivedDate);
+                const daysDiff = Math.floor((now - receivedDate) / oneDayMs);
+                
+                if (daysDiff >= 10) {
+                    tenDaysOld.push({ ...repair, days: daysDiff });
+                } else if (daysDiff >= 7) {
+                    weekOld.push({ ...repair, days: daysDiff });
+                }
+            });
+            
+            // Afficher les alertes
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = '';
+            
+            if (tenDaysOld.length > 0) {
+                alertContainer.innerHTML += createAlert(
+                    '🚨 ALERTE CRITIQUE',
+                    `${tenDaysOld.length} appareil(s) au magasin depuis 10 jours ou plus !`,
+                    tenDaysOld,
+                    'critical'
+                );
+            }
+            
+            if (weekOld.length > 0) {
+                alertContainer.innerHTML += createAlert(
+                    '⚠️ Alerte',
+                    `${weekOld.length} appareil(s) au magasin depuis 7 jours ou plus`,
+                    weekOld,
+                    'warning'
+                );
+            }
+        }
+
+        // Créer une alerte HTML
+        function createAlert(title, message, repairs, type) {
+            const listItems = repairs.map(r => `
+                <div class="alert-item">
+                    <strong>#${r.id} - ${r.clientName}</strong><br>
+                    📱 ${r.deviceBrand} | 📞 ${r.clientPhone}<br>
+                    ⏱️ <strong>${r.days} jours</strong> au magasin | Statut: ${r.status}
+                </div>
+            `).join('');
+            
+            return `
+                <div class="alert-box ${type === 'critical' ? 'critical' : ''}">
+                    <div class="alert-header">
+                        <div class="alert-title">${title}</div>
+                        <button class="alert-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                    </div>
+                    <div class="alert-body">
+                        <strong>${message}</strong>
+                        <div class="alert-list">
+                            ${listItems}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Calculer le nombre de jours depuis la réception
+        function getDaysSinceReceived(receivedDate) {
+            const now = new Date();
+            const received = new Date(receivedDate);
+            const daysDiff = Math.floor((now - received) / (24 * 60 * 60 * 1000));
+            return daysDiff;
+        }
+
+        // Soumission du formulaire
+        document.getElementById('repairForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const repair = {
+                id: nextId++,
+                repairType: document.getElementById('repairType').value,
+                clientName: document.getElementById('clientName').value,
+                clientPhone: document.getElementById('clientPhone').value,
+                clientEmail: document.getElementById('clientEmail').value,
+                contactPreference: document.getElementById('contactPreference').value,
+                clientRating: parseInt(document.getElementById('clientRating').value) || 0,
+                deviceType: document.getElementById('deviceType').value,
+                deviceBrand: document.getElementById('deviceBrand').value,
+                imeiSn: document.getElementById('imeiSn').value,
+                pinCode: document.getElementById('pinCode').value,
+                unlockCode: document.getElementById('unlockCode').value,
+                problemType: document.getElementById('problemType').value,
+                problemDescription: document.getElementById('problemDescription').value,
+                partName: document.getElementById('partName').value,
+                appointmentDate: document.getElementById('appointmentDate').value,
+                clientComments: document.getElementById('clientComments').value,
+                estimatedPrice: document.getElementById('estimatedPrice').value,
+                priority: document.getElementById('priority').value,
+                estimatedEndDate: document.getElementById('estimatedEndDate').value,
+                paymentStatus: document.getElementById('paymentStatus').value,
+                depositAmount: document.getElementById('depositAmount').value || 0,
+                finalPrice: '',
+                photos: [],
+                technicianReceived: document.getElementById('technicianReceived').value,
+                technicianReturned: '',
+                status: document.getElementById('repairType').value === 'Commande' ? 'Pièce commandée' : 'Reçu',
+                receivedDate: document.getElementById('receivedDate').value,
+                partReceivedDate: null,
+                deviceReceivedDate: null,
+                updatedDate: new Date().toISOString(),
+                returnDate: null,
+                completedDate: null,
+                technicianComments: '',
+                returnComments: ''
+            };
+
+            // Gestion des photos
+            const photosInput = document.getElementById('photos');
+            if (photosInput.files.length > 0) {
+                Array.from(photosInput.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        repair.photos.push(e.target.result);
+                        if (repair.photos.length === photosInput.files.length) {
+                            saveRepair(repair);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                saveRepair(repair);
+            }
+        });
+
+        function saveRepair(repair) {
+            repairs.unshift(repair);
+            saveData();
+            document.getElementById('repairForm').reset();
+            // Réinitialiser la date à maintenant
+            setCurrentDateTime();
+            // Réinitialiser les étoiles
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+            document.getElementById('clientRating').value = '0';
+            renderRepairs();
+            updateStats();
+            updateTechnicianStats();
+
+            alert('✅ Réparation enregistrée avec succès !');
+        }
+
+        // Recherche et filtre
+        document.getElementById('searchInput').addEventListener('input', renderRepairs);
+        document.getElementById('filterStatus').addEventListener('change', renderRepairs);
+
+        // Rendu de la liste
+        function renderRepairs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('filterStatus').value;
+
+            let filteredRepairs = repairs.filter(repair => {
+                const matchesSearch = 
+                    repair.clientName.toLowerCase().includes(searchTerm) ||
+                    repair.clientPhone.includes(searchTerm) ||
+                    repair.deviceBrand.toLowerCase().includes(searchTerm) ||
+                    repair.deviceType.toLowerCase().includes(searchTerm) ||
+                    (repair.imeiSn && repair.imeiSn.toLowerCase().includes(searchTerm)) ||
+                    (repair.clientEmail && repair.clientEmail.toLowerCase().includes(searchTerm));
+
+                const matchesStatus = !statusFilter || repair.status === statusFilter;
+
+                return matchesSearch && matchesStatus;
+            });
+
+            const repairsList = document.getElementById('repairsList');
+
+            if (filteredRepairs.length === 0) {
+                repairsList.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        <h3>Aucun résultat</h3>
+                        <p>Essayez de modifier vos critères de recherche</p>
+                    </div>
+                `;
+                return;
+            }
+
+            repairsList.innerHTML = filteredRepairs.map(repair => `
+                <div class="repair-card">
+                    <div class="repair-header">
+                        <div>
+                            <div class="repair-id">#${repair.id}</div>
+                        </div>
+                        <div style="display: flex; gap: 5px; align-items: center;">
+                            ${(() => {
+                                const days = getDaysSinceReceived(repair.receivedDate);
+                                let badges = '';
+                                if (repair.status !== 'Restitué') {
+                                    if (days >= 10) {
+                                        badges += `<span class="delay-badge delay-critical">🚨 ${days} jours</span>`;
+                                    } else if (days >= 7) {
+                                        badges += `<span class="delay-badge delay-warning">⚠️ ${days} jours</span>`;
+                                    }
+                                }
+                                // Badge priorité
+                                if (repair.priority) {
+                                    badges += `<span class="priority-badge priority-${repair.priority}">${repair.priority}</span>`;
+                                }
+                                // Badge paiement
+                                if (repair.paymentStatus) {
+                                    const payClass = repair.paymentStatus.toLowerCase().replace(' ', '-');
+                                    badges += `<span class="payment-badge payment-${payClass}">${repair.paymentStatus}</span>`;
+                                }
+                                badges += `<span class="status-badge status-${repair.status.toLowerCase().replace(' ', '-')}">${repair.status}</span>`;
+                                return badges;
+                            })()}
+                        </div>
+                    </div>
+                    
+                    <div class="repair-title">${repair.clientName}
+                        ${(() => {
+                            const clientCount = repairs.filter(r => r.clientName === repair.clientName || r.clientPhone === repair.clientPhone).length;
+                            const deviceCount = repair.imeiSn ? repairs.filter(r => r.imeiSn === repair.imeiSn).length : 0;
+                            let badges = '';
+                            if (clientCount > 1) {
+                                badges += `<span class="history-badge" title="Ce client a ${clientCount} réparations">${clientCount}x client</span>`;
+                            }
+                            if (deviceCount > 1) {
+                                badges += `<span class="history-badge device" title="Cet appareil a ${deviceCount} réparations">${deviceCount}x appareil</span>`;
+                            }
+                            // Affichage de la notation
+                            if (repair.clientRating > 0) {
+                                const ratingText = repair.clientRating === 1 ? 'Très difficile' : 
+                                                   repair.clientRating === 2 ? 'Difficile' : 
+                                                   repair.clientRating === 3 ? 'Correct' : 'Sympa';
+                                badges += `<span class="rating-badge rating-${repair.clientRating}" title="${ratingText}">`;
+                                for (let i = 0; i < repair.clientRating; i++) {
+                                    badges += '⭐';
+                                }
+                                badges += `</span>`;
+                            }
+                            return badges;
+                        })()}
+                    </div>
+                    
+                    <div class="repair-info">
+                        <span>📱 <strong>${repair.deviceType}</strong></span>
+                        <span>📞 <strong>${repair.clientPhone}</strong></span>
+                        <span>🏷️ <strong>${repair.deviceBrand}</strong></span>
+                        <span>📅 <strong>${formatDate(repair.receivedDate)}</strong></span>
+                        ${repair.clientEmail ? `<span>✉️ <strong>${repair.clientEmail}</strong></span>` : ''}
+                        ${repair.contactPreference ? `<span style="color: #ff6b35;">👤 Préfère: <strong>${repair.contactPreference}</strong></span>` : ''}
+                        <span>
+                            🔢 <strong id="imei-${repair.id}">${repair.imeiSn || 'Non renseigné'}</strong>
+                            <button class="btn btn-small" onclick="editImei(${repair.id})" style="padding: 4px 10px; font-size: 0.75em; margin-left: 5px; width: auto;">✏️</button>
+                        </span>
+                        ${repair.technicianReceived ? `<span style="color: #17a2b8;">👨‍🔧 Réception: <strong>${repair.technicianReceived}</strong></span>` : ''}
+                        ${repair.technicianReturned ? `<span style="color: #28a745;">👨‍🔧 Restitution: <strong>${repair.technicianReturned}</strong></span>` : ''}
+                        ${repair.estimatedPrice ? `<span>💰 <strong>${repair.estimatedPrice} €</strong></span>` : ''}
+                    </div>
+
+                    <div class="repair-description">
+                        <strong>Type de panne :</strong> ${repair.problemType || 'Non spécifié'}<br>
+                        <strong>Description :</strong> ${repair.problemDescription}
+                        ${repair.clientComments ? `<br><strong>Commentaires client :</strong> ${repair.clientComments}` : ''}
+                        ${repair.estimatedEndDate ? `<br><strong>📅 Fin estimée :</strong> ${new Date(repair.estimatedEndDate).toLocaleDateString('fr-FR')}` : ''}
+                        ${repair.finalPrice ? `<br><strong>💰 Prix final :</strong> ${repair.finalPrice} €` : ''}
+                    </div>
+
+                    ${repair.photos && repair.photos.length > 0 ? `
+                    <div class="photos-container">
+                        ${repair.photos.map((photo, index) => `
+                            <img src="${photo}" class="photo-thumb" onclick="showPhoto('${photo}')" alt="Photo ${index + 1}">
+                        `).join('')}
+                    </div>
+                    ` : ''}
+
+                    ${repair.technicianComments ? `
+                    <div class="repair-description" style="background: #e7f3ff;">
+                        <strong>💬 Commentaires Technicien :</strong> ${repair.technicianComments}
+                    </div>
+                    ` : ''}
+
+                    ${repair.returnComments ? `
+                    <div class="repair-description" style="background: #d4edda;">
+                        <strong>✅ Commentaires Restitution :</strong> ${repair.returnComments}
+                    </div>
+                    ` : ''}
+
+                    <div class="notification-section">
+                        <h4>📲 Notifier le client ${repair.contactPreference ? `(Préfère: ${repair.contactPreference})` : ''}</h4>
+                        <div class="notification-buttons">
+                            ${(!repair.contactPreference || repair.contactPreference === 'WhatsApp' || repair.contactPreference === 'Les deux') ? `
+                            <button class="btn btn-small btn-whatsapp" onclick="sendWhatsApp(${repair.id})">
+                                <span>💬</span> WhatsApp
+                            </button>
+                            ` : ''}
+                            ${(!repair.contactPreference || repair.contactPreference === 'Email' || repair.contactPreference === 'Les deux') ? `
+                            <button class="btn btn-small btn-email" onclick="sendEmail(${repair.id})">
+                                <span>📧</span> Email
+                            </button>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="repair-actions">
+                        <select onchange="updateStatus(${repair.id}, this.value)">
+                            <option value="">Changer le statut...</option>
+                            <option value="Reçu" ${repair.status === 'Reçu' ? 'selected' : ''}>Reçu</option>
+                            <option value="En cours" ${repair.status === 'En cours' ? 'selected' : ''}>En cours</option>
+                            <option value="Terminé" ${repair.status === 'Terminé' ? 'selected' : ''}>Terminé</option>
+                            <option value="Restitué" ${repair.status === 'Restitué' ? 'selected' : ''}>Restitué</option>
+                        </select>
+                        <button class="btn btn-small btn-print" onclick="printLabel(${repair.id})">🏷️ Étiquette</button>
+                        <button class="btn btn-small" onclick="openCommentsModal(${repair.id})" style="background: #17a2b8;">💬 Commentaires</button>
+                        <button class="btn btn-small btn-delete" onclick="deleteRepair(${repair.id})">🗑️ Supprimer</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Mise à jour du statut
+        function updateStatus(id, newStatus) {
+            if (!newStatus) return;
+
+            const repair = repairs.find(r => r.id === id);
+            if (repair) {
+                // Si passage à "Restitué", demander le technicien
+                if (newStatus === 'Restitué' && !repair.technicianReturned) {
+                    const technician = prompt('Qui a effectué la restitution ?\n\n1. Issam\n2. Ramy\n\nEntrez le nom du technicien:');
+                    if (technician && (technician.toLowerCase().includes('issam') || technician === '1')) {
+                        repair.technicianReturned = 'Issam';
+                    } else if (technician && (technician.toLowerCase().includes('ramy') || technician === '2')) {
+                        repair.technicianReturned = 'Ramy';
+                    } else if (technician) {
+                        repair.technicianReturned = technician;
+                    } else {
+                        return; // Annuler si aucun technicien n'est sélectionné
+                    }
+                    repair.returnDate = new Date().toISOString();
+                }
+                
+                repair.status = newStatus;
+                repair.updatedDate = new Date().toISOString();
+                saveData();
+                renderRepairs();
+                updateStats();
+                updateTechnicianStats();
+            }
+        }
+
+        // Suppression
+        function deleteRepair(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette réparation ?')) {
+                repairs = repairs.filter(r => r.id !== id);
+                saveData();
+                renderRepairs();
+                updateStats();
+                updateTechnicianStats();
+            }
+        }
+
+        // Mise à jour des statistiques
+        function updateStats() {
+            document.getElementById('statTotal').textContent = repairs.length;
+            document.getElementById('statEnCours').textContent = 
+                repairs.filter(r => r.status === 'Reçu' || r.status === 'En cours').length;
+            document.getElementById('statTermine').textContent = 
+                repairs.filter(r => r.status === 'Terminé').length;
+        }
+
+        // Formatage de date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Sauvegarde des données
+        function saveData() {
+            localStorage.setItem('repairs', JSON.stringify(repairs));
+            localStorage.setItem('nextId', nextId.toString());
+        }
+
+        // Gestion du modal de commentaires
+        let currentRepairId = null;
+
+        function openCommentsModal(id) {
+            currentRepairId = id;
+            const repair = repairs.find(r => r.id === id);
+            if (repair) {
+                document.getElementById('modalTechnicianComments').value = repair.technicianComments || '';
+                document.getElementById('modalReturnComments').value = repair.returnComments || '';
+                document.getElementById('commentsModal').style.display = 'block';
+            }
+        }
+
+        function closeCommentsModal() {
+            document.getElementById('commentsModal').style.display = 'none';
+            currentRepairId = null;
+        }
+
+        function saveComments() {
+            if (currentRepairId === null) return;
+
+            const repair = repairs.find(r => r.id === currentRepairId);
+            if (repair) {
+                repair.technicianComments = document.getElementById('modalTechnicianComments').value;
+                repair.returnComments = document.getElementById('modalReturnComments').value;
+                repair.updatedDate = new Date().toISOString();
+                saveData();
+                renderRepairs();
+                closeCommentsModal();
+                alert('✅ Commentaires enregistrés !');
+            }
+        }
+
+        // Fermer le modal en cliquant en dehors
+        window.onclick = function(event) {
+            const modal = document.getElementById('commentsModal');
+            if (event.target === modal) {
+                closeCommentsModal();
+            }
+        }
+
+        // Fonction pour générer le message selon le statut
+        function generateMessage(repair) {
+            const shopName = "Reparphone29";
+            const shopPhone = "0033645065515";
+            const shopFixe = "02 29 25 01 11";
+            const shopAddress = "12 Rue Oberhausen, 29270 Carhaix-Plouguer";
+            const shopEmail = "Reparphone29@hotmail.fr";
+            const shopWebsite = "www.reparphone29.fr";
+            
+            let message = '';
+            
+            switch(repair.status) {
+                case 'Reçu':
+                    message = `Bonjour ${repair.clientName},\n\n`;
+                    message += `✅ Nous avons bien reçu votre ${repair.deviceType} (${repair.deviceBrand}) pour réparation.\n\n`;
+                    message += `📋 Numéro de dossier : #${repair.id}\n`;
+                    message += `🔧 Panne : ${repair.problemType}\n`;
+                    if (repair.estimatedPrice) {
+                        message += `💰 Devis estimé : ${repair.estimatedPrice}€\n`;
+                    }
+                    if (repair.imeiSn) {
+                        message += `🔢 IMEI/SN : ${repair.imeiSn}\n`;
+                    }
+                    message += `📅 Date de réception : ${formatDateShort(repair.receivedDate)}\n\n`;
+                    message += `Nous vous tiendrons informé de l'avancement de la réparation.\n\n`;
+                    message += `Cordialement,\n${shopName}\n📍 ${shopAddress}\n📞 ${shopFixe} | 📱 ${shopPhone}\n🌐 ${shopWebsite}`;
+                    break;
+                    
+                case 'En cours':
+                    message = `Bonjour ${repair.clientName},\n\n`;
+                    message += `🔧 Votre ${repair.deviceType} (${repair.deviceBrand}) est actuellement en cours de réparation.\n\n`;
+                    message += `📋 Dossier : #${repair.id}\n`;
+                    if (repair.technicianComments) {
+                        message += `💬 Informations : ${repair.technicianComments}\n`;
+                    }
+                    message += `\nNous vous contacterons dès que la réparation sera terminée.\n\n`;
+                    message += `Cordialement,\n${shopName}\n📞 ${shopFixe} | 📱 ${shopPhone}\n🌐 ${shopWebsite}`;
+                    break;
+                    
+                case 'Terminé':
+                    message = `Bonjour ${repair.clientName},\n\n`;
+                    message += `✅ Bonne nouvelle ! Votre ${repair.deviceType} (${repair.deviceBrand}) est réparé et prêt à être récupéré.\n\n`;
+                    message += `📋 Dossier : #${repair.id}\n`;
+                    if (repair.estimatedPrice) {
+                        message += `💰 Montant : ${repair.estimatedPrice}€\n`;
+                    }
+                    if (repair.returnComments) {
+                        message += `ℹ️ Informations : ${repair.returnComments}\n`;
+                    }
+                    message += `\n📍 Vous pouvez venir le récupérer à :\n${shopAddress}\n`;
+                    message += `\nCordialement,\n${shopName}\n📞 ${shopFixe} | 📱 ${shopPhone}\n🌐 ${shopWebsite}`;
+                    break;
+                    
+                case 'Restitué':
+                    message = `Bonjour ${repair.clientName},\n\n`;
+                    message += `✅ Merci d'avoir récupéré votre ${repair.deviceType} (${repair.deviceBrand}).\n\n`;
+                    message += `📋 Dossier : #${repair.id}\n`;
+                    if (repair.returnComments) {
+                        message += `ℹ️ Recommandations : ${repair.returnComments}\n`;
+                    }
+                    message += `\nN'hésitez pas à nous contacter en cas de problème.\n`;
+                    message += `Merci de votre confiance !\n\n`;
+                    message += `Cordialement,\n${shopName}\n📍 ${shopAddress}\n📞 ${shopFixe} | 📱 ${shopPhone}\n✉️ ${shopEmail}\n🌐 ${shopWebsite}`;
+                    break;
+            }
+            
+            return message;
+        }
+
+        // Fonction pour envoyer via WhatsApp
+        function sendWhatsApp(id) {
+            const repair = repairs.find(r => r.id === id);
+            if (!repair) return;
+            
+            if (!repair.clientPhone) {
+                alert('❌ Aucun numéro de téléphone enregistré pour ce client.');
+                return;
+            }
+            
+            const message = generateMessage(repair);
+            
+            // Nettoyer le numéro de téléphone (enlever espaces, tirets, etc.)
+            let phone = repair.clientPhone.replace(/[\s\-\.]/g, '');
+            
+            // Si le numéro commence par 0, remplacer par l'indicatif pays (ex: 33 pour France)
+            if (phone.startsWith('0')) {
+                phone = '33' + phone.substring(1); // MODIFIEZ 33 selon votre pays
+            }
+            
+            // Encoder le message pour l'URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Ouvrir WhatsApp
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Fonction pour envoyer via Email
+        function sendEmail(id) {
+            const repair = repairs.find(r => r.id === id);
+            if (!repair) return;
+            
+            if (!repair.clientEmail && !repair.clientPhone) {
+                alert('❌ Aucun email ni téléphone enregistré pour ce client.');
+                return;
+            }
+            
+            const message = generateMessage(repair);
+            
+            let subject = '';
+            switch(repair.status) {
+                case 'Reçu':
+                    subject = `Réception de votre ${repair.deviceType} - Dossier #${repair.id}`;
+                    break;
+                case 'En cours':
+                    subject = `Réparation en cours - Dossier #${repair.id}`;
+                    break;
+                case 'Terminé':
+                    subject = `Votre ${repair.deviceType} est prêt ! - Dossier #${repair.id}`;
+                    break;
+                case 'Restitué':
+                    subject = `Restitution confirmée - Dossier #${repair.id}`;
+                    break;
+            }
+            
+            // Encoder pour l'URL
+            const encodedSubject = encodeURIComponent(subject);
+            const encodedBody = encodeURIComponent(message);
+            
+            // Si email disponible, l'utiliser, sinon laisser vide
+            const emailTo = repair.clientEmail || '';
+            
+            // Ouvrir le client email par défaut
+            const mailtoUrl = `mailto:${emailTo}?subject=${encodedSubject}&body=${encodedBody}`;
+            window.location.href = mailtoUrl;
+        }
+
+        // Fonction pour formater la date en version courte
+        function formatDateShort(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Fonction pour imprimer l'étiquette
+        function printLabel(id) {
+            const repair = repairs.find(r => r.id === id);
+            if (!repair) return;
+
+            // Remplir les données de l'étiquette
+            document.getElementById('labelId').textContent = `#${repair.id}`;
+            document.getElementById('labelClient').textContent = repair.clientName;
+            document.getElementById('labelPhone').textContent = repair.clientPhone;
+            document.getElementById('labelDevice').textContent = `${repair.deviceType} - ${repair.deviceBrand}`;
+            document.getElementById('labelProblem').textContent = repair.problemType || 'Non spécifié';
+            document.getElementById('labelImei').textContent = repair.imeiSn || '-';
+            
+            const date = new Date(repair.receivedDate);
+            document.getElementById('labelDate').textContent = date.toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            document.getElementById('labelPrice').textContent = repair.estimatedPrice ? `${repair.estimatedPrice} €` : 'À définir';
+
+            // Afficher l'étiquette et lancer l'impression
+            document.getElementById('labelPrint').style.display = 'block';
+            
+            setTimeout(() => {
+                window.print();
+                document.getElementById('labelPrint').style.display = 'none';
+            }, 100);
+        }
+
+        // Fonction pour éditer l'IMEI/SN
+        function editImei(id) {
+            const repair = repairs.find(r => r.id === id);
+            if (!repair) return;
+
+            const currentImei = repair.imeiSn || '';
+            const newImei = prompt(`Modifier l'IMEI/SN pour ${repair.clientName} :\n\nAppareil : ${repair.deviceBrand}`, currentImei);
+
+            if (newImei !== null && newImei !== currentImei) {
+                repair.imeiSn = newImei.trim();
+                repair.updatedDate = new Date().toISOString();
+                saveData();
+                renderRepairs();
+                updateTechnicianStats();
+                
+                // Message de confirmation
+                if (newImei.trim() === '') {
+                    alert('✅ IMEI/SN supprimé');
+                } else {
+                    alert('✅ IMEI/SN mis à jour : ' + newImei);
+                }
+            }
+        }
+
+        // Afficher photo en grand
+        function showPhoto(photoSrc) {
+            document.getElementById('photoModalImg').src = photoSrc;
+            document.getElementById('photoModal').style.display = 'block';
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').style.display = 'none';
+        }
+
+        // Toggle entre Réparation et Commande
+        function toggleRepairType() {
+            const type = document.getElementById('repairType').value;
+            const isOrder = type === 'Commande';
+            
+            // Afficher/masquer les champs selon le type
+            document.getElementById('partNameGroup').style.display = isOrder ? 'block' : 'none';
+            document.getElementById('appointmentDateGroup').style.display = isOrder ? 'block' : 'none';
+            document.getElementById('pinCodeGroup').style.display = isOrder ? 'none' : 'block';
+            document.getElementById('unlockCodeGroup').style.display = isOrder ? 'none' : 'block';
+            
+            // Ajuster les champs requis
+            document.getElementById('partName').required = isOrder;
+        }
+
+        // Marquer pièce reçue
+        function markPartReceived(id) {
+            const repair = repairs.find(r => r.id === id);
+            if (!repair) return;
+            
+            if (confirm(`✅ Confirmer que la pièce "${repair.partName}" est bien reçue ?`)) {
+                repair.status = 'Pièce disponible';
+                repair.partReceivedDate = new Date().toISOString();
+                repair.updatedDate = new Date().toISOString();
+                saveData();
+                renderRepairs();
+                updateTechnicianStats();
+                
+                // Proposer d'envoyer une notification
+                if (confirm('📱 Voulez-vous contacter le client maintenant ?')) {
+                    if (repair.contactPreference === 'WhatsApp' || repair.contactPreference === 'Les deux') {
+                        sendWhatsApp(id);
+                    } else {
+                        sendEmail(id);
+                    }
+                }
+            }
+        }
+
+        // Réceptionner l'appareil après commande pièce
+        function receiveDevice(id) {
+            const repair = repairs.find(r => r.id === id);
+            if (!repair) return;
+            
+            // Demander les infos de l'appareil
+            const imei = prompt(`Entrez l'IMEI/SN de l'appareil :`);
+            const pin = prompt(`Entrez le code PIN (si applicable) :`);
+            const unlock = prompt(`Entrez le code de déverrouillage (si applicable) :`);
+            
+            repair.imeiSn = imei || '';
+            repair.pinCode = pin || '';
+            repair.unlockCode = unlock || '';
+            repair.deviceReceivedDate = new Date().toISOString();
+            repair.status = 'En cours';
+            repair.updatedDate = new Date().toISOString();
+            
+            saveData();
+            renderRepairs();
+            updateTechnicianStats();
+            
+            alert('✅ Appareil réceptionné ! La réparation peut commencer.');
+        }
+
+        // Export en JSON (backup complet)
+        function exportToJSON() {
+            const data = {
+                repairs: repairs,
+                nextId: nextId,
+                exportDate: new Date().toISOString(),
+                version: '2.0'
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `reparphone29_backup_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Backup exporté avec succès !');
+        }
+
+        // Export en CSV (pour Excel)
+        function exportToCSV() {
+            const headers = ['ID', 'Date', 'Client', 'Téléphone', 'Appareil', 'Panne', 'IMEI/SN', 'Prix', 'Statut', 'Paiement', 'Priorité', 'Technicien'];
+            
+            const rows = repairs.map(r => [
+                r.id,
+                new Date(r.receivedDate).toLocaleDateString('fr-FR'),
+                r.clientName,
+                r.clientPhone,
+                `${r.deviceType} - ${r.deviceBrand}`,
+                r.problemType,
+                r.imeiSn || '',
+                r.finalPrice || r.estimatedPrice || '0',
+                r.status,
+                r.paymentStatus || '',
+                r.priority || '',
+                r.technicianReceived || ''
+            ]);
+            
+            let csvContent = headers.join(';') + '\n';
+            rows.forEach(row => {
+                csvContent += row.map(cell => `"${cell}"`).join(';') + '\n';
+            });
+            
+            const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `reparphone29_export_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Export CSV réussi ! Ouvrez avec Excel.');
+        }
+
+        // Import de données
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (confirm('⚠️ ATTENTION !\n\nL\'import va REMPLACER toutes vos données actuelles.\n\nVoulez-vous continuer ?')) {
+                        repairs = data.repairs || [];
+                        nextId = data.nextId || 1;
+                        saveData();
+                        renderRepairs();
+                        updateStats();
+                        updateTechnicianStats();
+                        alert('✅ Données importées avec succès !');
+                        location.reload();
+                    }
+                } catch (error) {
+                    alert('❌ Erreur : Fichier invalide !');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Calcul et affichage des statistiques des techniciens
+        function updateTechnicianStats() {
+            const technicians = ['Issam', 'Ramy'];
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+            const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+            // Stats globales
+            const currentMonthRepairs = repairs.filter(r => {
+                const date = new Date(r.receivedDate);
+                return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+            });
+
+            const lastMonthRepairs = repairs.filter(r => {
+                const date = new Date(r.receivedDate);
+                return date.getMonth() === lastMonth && date.getFullYear() === lastMonthYear;
+            });
+
+            document.getElementById('currentMonthTotal').textContent = currentMonthRepairs.length;
+            document.getElementById('lastMonthTotal').textContent = lastMonthRepairs.length;
+
+            const difference = currentMonthRepairs.length - lastMonthRepairs.length;
+            const percentChange = lastMonthRepairs.length > 0 ? ((difference / lastMonthRepairs.length) * 100).toFixed(1) : 0;
+            
+            let comparisonHTML = '';
+            if (difference > 0) {
+                comparisonHTML = `<span class="stat-value positive">📈 +${difference} réparations (+${percentChange}%)</span>`;
+            } else if (difference < 0) {
+                comparisonHTML = `<span class="stat-value negative">📉 ${difference} réparations (${percentChange}%)</span>`;
+            } else {
+                comparisonHTML = `<span class="stat-value">➡️ Stable (0%)</span>`;
+            }
+            document.getElementById('monthComparison').innerHTML = comparisonHTML;
+
+            // Délai moyen global
+            const completedRepairs = repairs.filter(r => r.returnDate);
+            let totalDays = 0;
+            completedRepairs.forEach(r => {
+                const received = new Date(r.receivedDate);
+                const returned = new Date(r.returnDate);
+                const days = Math.floor((returned - received) / (24 * 60 * 60 * 1000));
+                totalDays += days;
+            });
+            const avgDelay = completedRepairs.length > 0 ? (totalDays / completedRepairs.length).toFixed(1) : 0;
+            document.getElementById('globalAvgDelay').textContent = `${avgDelay} jours`;
+            document.getElementById('globalTotalRepairs').textContent = repairs.length;
+            document.getElementById('globalActiveRepairs').textContent = repairs.filter(r => r.status !== 'Restitué').length;
+
+            // Stats par technicien
+            const statsHTML = technicians.map(tech => {
+                const techRepairs = repairs.filter(r => r.technicianReceived === tech);
+                const techCompleted = repairs.filter(r => r.technicianReturned === tech);
+                
+                // Calcul du délai moyen
+                let techTotalDays = 0;
+                techCompleted.forEach(r => {
+                    const received = new Date(r.receivedDate);
+                    const returned = new Date(r.returnDate);
+                    const days = Math.floor((returned - received) / (24 * 60 * 60 * 1000));
+                    techTotalDays += days;
+                });
+                const techAvgDelay = techCompleted.length > 0 ? (techTotalDays / techCompleted.length).toFixed(1) : 0;
+
+                const techInProgress = techRepairs.filter(r => r.status !== 'Restitué').length;
+
+                return `
+                    <div class="stat-box">
+                        <h3>👨‍🔧 ${tech}</h3>
+                        <div class="stat-row">
+                            <span class="stat-label">Réparations reçues</span>
+                            <span class="stat-value">${techRepairs.length}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Réparations restituées</span>
+                            <span class="stat-value">${techCompleted.length}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">En cours</span>
+                            <span class="stat-value">${techInProgress}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Délai moyen</span>
+                            <span class="stat-value">${techAvgDelay} jours</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('technicianStats').innerHTML = statsHTML;
+
+            // Graphique comparatif
+            const maxRepairs = Math.max(...technicians.map(tech => 
+                repairs.filter(r => r.technicianReceived === tech).length
+            ));
+
+            const chartHTML = technicians.map(tech => {
+                const count = repairs.filter(r => r.technicianReceived === tech).length;
+                const percentage = maxRepairs > 0 ? (count / maxRepairs) * 100 : 0;
+
+                return `
+                    <div class="bar-item">
+                        <div class="bar-label">${tech}</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${percentage}%">${count}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('technicianChart').innerHTML = chartHTML;
+
+            // Statistiques financières
+            const currentMonthPaidRepairs = currentMonthRepairs.filter(r => r.paymentStatus === 'Payé' || r.status === 'Restitué');
+            const currentMonthRevenue = currentMonthPaidRepairs.reduce((sum, r) => sum + parseFloat(r.finalPrice || r.estimatedPrice || 0), 0);
+            document.getElementById('currentMonthRevenue').textContent = currentMonthRevenue.toFixed(2) + ' €';
+
+            const pendingRepairs = repairs.filter(r => r.paymentStatus === 'En attente' && r.status !== 'Restitué');
+            const pendingAmount = pendingRepairs.reduce((sum, r) => sum + parseFloat(r.finalPrice || r.estimatedPrice || 0), 0);
+            document.getElementById('pendingPayments').textContent = pendingAmount.toFixed(2) + ' €';
+
+            const depositRepairs = repairs.filter(r => r.paymentStatus === 'Acompte');
+            const depositAmount = depositRepairs.reduce((sum, r) => sum + parseFloat(r.depositAmount || 0), 0);
+            document.getElementById('totalDeposits').textContent = depositAmount.toFixed(2) + ' €';
+
+            // TOP 10 Pannes
+            const problemCounts = {};
+            repairs.forEach(r => {
+                if (r.problemType) {
+                    problemCounts[r.problemType] = (problemCounts[r.problemType] || 0) + 1;
+                }
+            });
+
+            const topProblems = Object.entries(problemCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const maxProblemCount = topProblems[0] ? topProblems[0][1] : 1;
+
+            const problemsHTML = topProblems.map(([problem, count]) => {
+                const percentage = (count / maxProblemCount) * 100;
+                return `
+                    <div class="bar-item">
+                        <div class="bar-label" style="min-width: 150px;">${problem}</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${percentage}%">${count}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('topProblemsChart').innerHTML = problemsHTML || '<p style="text-align: center; color: #6c757d;">Aucune donnée</p>';
+
+            // TOP 10 Appareils
+            const deviceCounts = {};
+            repairs.forEach(r => {
+                if (r.deviceBrand) {
+                    deviceCounts[r.deviceBrand] = (deviceCounts[r.deviceBrand] || 0) + 1;
+                }
+            });
+
+            const topDevices = Object.entries(deviceCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const maxDeviceCount = topDevices[0] ? topDevices[0][1] : 1;
+
+            const devicesHTML = topDevices.map(([device, count]) => {
+                const percentage = (count / maxDeviceCount) * 100;
+                return `
+                    <div class="bar-item">
+                        <div class="bar-label" style="min-width: 150px;">${device}</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${percentage}%">${count}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('topDevicesChart').innerHTML = devicesHTML || '<p style="text-align: center; color: #6c757d;">Aucune donnée</p>';
+        }
+    </script>
+</body>
+</html>
