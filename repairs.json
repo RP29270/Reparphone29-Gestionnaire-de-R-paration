@@ -15,3 +15,70 @@
   ],
   "lastUpdate": "2024-11-02T00:00:00.000Z"
 }
+{
+  "repairs": [
+    {
+      "id": 8,
+      "trackingCode": "REP2025-009-BS1QOO",
+      "clientName": "horri",
+      "deviceType": "Smartphone",
+      "deviceBrand": "",
+      "problemType": "Récupération de données",
+      "status": "Reçu",
+      "receivedDate": "2025-11-02T23:02",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "90",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    },
+    {
+      "id": 7,
+      "trackingCode": "REP2025-008-M6LQ2Z",
+      "clientName": "horri",
+      "deviceType": "Smartphone",
+      "deviceBrand": "",
+      "problemType": "Réseau GSM",
+      "status": "Reçu",
+      "receivedDate": "2025-11-02T22:51",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "90",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    },
+    {
+      "id": 6,
+      "clientName": "dcwxcwx",
+      "deviceType": "Tablette",
+      "deviceBrand": "",
+      "problemType": "Micro",
+      "status": "Reçu",
+      "receivedDate": "2025-11-02T04:20",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "50",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    },
+    {
+      "id": 5,
+      "clientName": "qsxqsx",
+      "deviceType": "Smartphone",
+      "deviceBrand": "",
+      "problemType": "Oxydation",
+      "status": "Reçu",
+      "receivedDate": "2025-11-02T03:18",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "60",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    }
+  ],
+  "lastUpdate": "2025-11-02T22:50:34.277Z"
+}
