@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi de Réparation - Reparphone29</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+
+        .search-section {
+            padding: 30px 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .search-box button {
+            padding: 15px 30px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #f7931e;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .status-timeline {
+            margin: 30px 0;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .status-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 45px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background: #dee2e6;
+        }
+
+        .status-step.active::after {
+            background: #ff6b35;
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            margin-right: 15px;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .status-step.active .status-icon {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .status-step.completed .status-icon {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-info {
+            flex: 1;
+        }
+
+        .status-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+
+        .status-step.active .status-title {
+            color: #ff6b35;
+        }
+
+        .status-date {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .info-value {
+            color: #212529;
+            text-align: right;
+        }
+
+        .price-badge {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .comments-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .comments-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .comments-text {
+            color: #856404;
+            line-height: 1.5;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #dc3545;
+        }
+
+        .error-message h2 {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 2px solid #e9ecef;
+        }
+
+        footer a {
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .auto-refresh {
+            text-align: center;
+            padding: 10px;
+            background: #e7f3ff;
+            color: #004085;
+            font-size: 0.9em;
+            border-top: 1px solid #b8daff;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-box button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 REPARPHONE29</h1>
+            <p>Suivez votre réparation en temps réel</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="trackingCode" placeholder="Entrez votre code de suivi" autocomplete="off">
+                <button onclick="searchRepair()">🔍 Suivre</button>
+            </div>
+        </div>
+
+        <div class="content" id="content">
+            <div class="loading" id="initialMessage">
+                <h3>👋 Bienvenue !</h3>
+                <p>Entrez votre code de suivi pour voir l'état de votre réparation.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>REPARPHONE29</strong></p>
+            <p>📍 12 Rue Oberhausen, 29270 Carhaix-Plouguer</p>
+            <p>📞 02 29 25 01 11 | 📱 06 45 06 55 15</p>
+            <p>🌐 <a href="http://www.reparphone29.fr" target="_blank">www.reparphone29.fr</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Récupérer le code depuis l'URL au chargement
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            
+            if (code) {
+                document.getElementById('trackingCode').value = code;
+                searchRepair();
+            }
+        });
+
+        // Fonction de recherche
+        async function searchRepair() {
+            const code = document.getElementById('trackingCode').value.trim();
+            
+            if (!code) {
+                alert('⚠️ Veuillez entrer un code de suivi');
+                return;
+            }
+
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading">🔍 Recherche en cours...</div>';
+
+            try {
+                // Charger les données depuis GitHub
+                const response = await fetch('repairs.json?t=' + new Date().getTime());
+                
+                if (!response.ok) {
+                    throw new Error('Erreur de chargement des données');
+                }
+
+                const data = await response.json();
+                const repair = data.repairs.find(r => r.trackingCode === code || r.id.toString() === code);
+
+                if (repair) {
+                    displayRepair(repair);
+                    // Auto-refresh toutes les 30 secondes
+                    setTimeout(() => searchRepair(), 30000);
+                } else {
+                    content.innerHTML = `
+                        <div class="error-message">
+                            <h2>❌ Code introuvable</h2>
+                            <p>Aucune réparation ne correspond au code <strong>${code}</strong></p>
+                            <p style="margin-top: 20px; color: #6c757d;">Vérifiez le code reçu par message ou contactez-nous.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                content.innerHTML = `
+                    <div class="error-message">
+                        <h2>⚠️ Erreur de connexion</h2>
+                        <p>Impossible de charger les données.</p>
+                        <p style="margin-top: 10px; font-size: 0.9em; color: #6c757d;">Veuillez réessayer dans quelques instants.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Afficher les détails de la réparation
+        function displayRepair(repair) {
+            const statuses = ['Reçu', 'En cours', 'Terminé', 'Restitué'];
+            const statusIndex = statuses.indexOf(repair.status);
+
+            let timeline = '';
+            statuses.forEach((status, index) => {
+                let icon = '⏳';
+                let className = '';
+                let date = '';
+
+                if (index < statusIndex) {
+                    icon = '✅';
+                    className = 'completed';
+                } else if (index === statusIndex) {
+                    icon = '🔄';
+                    className = 'active';
+                }
+
+                if (status === 'Reçu' && repair.receivedDate) {
+                    date = formatDate(repair.receivedDate);
+                } else if (status === 'Terminé' && repair.completedDate) {
+                    date = formatDate(repair.completedDate);
+                } else if (status === 'Restitué' && repair.returnDate) {
+                    date = formatDate(repair.returnDate);
+                }
+
+                timeline += `
+                    <div class="status-step ${className}">
+                        <div class="status-icon">${icon}</div>
+                        <div class="status-info">
+                            <div class="status-title">${status}</div>
+                            ${date ? `<div class="status-date">${date}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="auto-refresh">🔄 Mise à jour automatique toutes les 30 secondes</div>
+                
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-label">📋 Dossier</span>
+                        <span class="info-value">#${repair.id}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">🔑 Code</span>
+                        <span class="info-value">${repair.trackingCode}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">📱 Appareil</span>
+                        <span class="info-value">${repair.deviceBrand || repair.deviceType}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">🔧 Panne</span>
+                        <span class="info-value">${repair.problemType}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">📅 Reçu le</span>
+                        <span class="info-value">${formatDate(repair.receivedDate)}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">💰 Prix</span>
+                        <span class="info-value"><span class="price-badge">${repair.finalPrice || repair.estimatedPrice || '0.00'} €</span></span>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 20px; color: #495057;">📍 État de votre réparation</h3>
+                <div class="status-timeline">
+                    ${timeline}
+                </div>
+
+                ${repair.technicianComments || repair.returnComments ? `
+                    <div class="comments-box">
+                        <div class="comments-title">💬 Informations</div>
+                        <div class="comments-text">
+                            ${repair.technicianComments || ''}
+                            ${repair.returnComments ? '<br>' + repair.returnComments : ''}
+                        </div>
+                    </div>
+                ` : ''}
+
+                ${repair.status === 'Terminé' ? `
+                    <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: center;">
+                        <h3 style="color: #155724; margin-bottom: 10px;">✅ Votre appareil est prêt !</h3>
+                        <p style="color: #155724;">Vous pouvez venir le récupérer à notre magasin.</p>
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        // Formater la date
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Permettre la recherche avec Enter
+        document.getElementById('trackingCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchRepair();
+            }
+        });
+    </script>
+</body>
+</html>
