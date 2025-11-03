@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivi de Réparation - Reparphone29</title>
+    <title>Suivi de RÃ©paration - Reparphone29</title>
     <style>
         * {
             margin: 0;
@@ -272,34 +272,34 @@
 <body>
     <div class="container">
         <header>
-            <h1>🔧 REPARPHONE29</h1>
-            <p>Suivez votre réparation en temps réel</p>
+            <h1>ðŸ”§ REPARPHONE29</h1>
+            <p>Suivez votre rÃ©paration en temps rÃ©el</p>
         </header>
 
         <div class="search-section">
             <div class="search-box">
                 <input type="text" id="trackingCode" placeholder="Entrez votre code de suivi" autocomplete="off">
-                <button onclick="searchRepair()">🔍 Suivre</button>
+                <button onclick="searchRepair()">ðŸ” Suivre</button>
             </div>
         </div>
 
         <div class="content" id="content">
             <div class="loading" id="initialMessage">
-                <h3>👋 Bienvenue !</h3>
-                <p>Entrez votre code de suivi pour voir l'état de votre réparation.</p>
+                <h3>ðŸ‘‹ Bienvenue !</h3>
+                <p>Entrez votre code de suivi pour voir l'Ã©tat de votre rÃ©paration.</p>
             </div>
         </div>
 
         <footer>
             <p><strong>REPARPHONE29</strong></p>
-            <p>📍 12 Rue Oberhausen, 29270 Carhaix-Plouguer</p>
-            <p>📞 02 29 25 01 11 | 📱 06 45 06 55 15</p>
-            <p>🌐 <a href="http://www.reparphone29.fr" target="_blank">www.reparphone29.fr</a></p>
+            <p>ðŸ“ 12 Rue Oberhausen, 29270 Carhaix-Plouguer</p>
+            <p>ðŸ“ž 02 29 25 01 11 | ðŸ“± 06 45 06 55 15</p>
+            <p>ðŸŒ <a href="http://www.reparphone29.fr" target="_blank">www.reparphone29.fr</a></p>
         </footer>
     </div>
 
     <script>
-        // Récupérer le code depuis l'URL au chargement
+        // RÃ©cupÃ©rer le code depuis l'URL au chargement
         window.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
@@ -315,15 +315,15 @@
             const code = document.getElementById('trackingCode').value.trim();
             
             if (!code) {
-                alert('⚠️ Veuillez entrer un code de suivi');
+                alert('âš ï¸ Veuillez entrer un code de suivi');
                 return;
             }
 
             const content = document.getElementById('content');
-            content.innerHTML = '<div class="loading">🔍 Recherche en cours...</div>';
+            content.innerHTML = '<div class="loading">ðŸ” Recherche en cours...</div>';
 
             try {
-                // Charger les données depuis GitHub
+                // Charger les donnÃ©es depuis GitHub
                 const response = await fetch('repairs.json?t=' + new Date().getTime());
                 
                 if (!response.ok) {
@@ -332,9 +332,9 @@
 
                 const data = await response.json();
                 
-                // Vérifier que repairs existe et est un tableau
+                // VÃ©rifier que repairs existe et est un tableau
                 if (!data.repairs || !Array.isArray(data.repairs)) {
-                    throw new Error('Format de données invalide');
+                    throw new Error('Format de donnÃ©es invalide');
                 }
 
                 const repair = data.repairs.find(r => {
@@ -350,66 +350,66 @@
                 } else {
                     content.innerHTML = `
                         <div class="error-message">
-                            <h2>❌ Code introuvable</h2>
-                            <p>Aucune réparation ne correspond au code <strong>${code}</strong></p>
-                            <p style="margin-top: 20px; color: #6c757d;">Vérifiez le code reçu par message ou contactez-nous.</p>
-                            <p style="margin-top: 10px; color: #6c757d; font-size: 0.9em;">📞 02 29 25 01 11</p>
+                            <h2>âŒ Code introuvable</h2>
+                            <p>Aucune rÃ©paration ne correspond au code <strong>${code}</strong></p>
+                            <p style="margin-top: 20px; color: #6c757d;">VÃ©rifiez le code reÃ§u par message ou contactez-nous.</p>
+                            <p style="margin-top: 10px; color: #6c757d; font-size: 0.9em;">ðŸ“ž 02 29 25 01 11</p>
                         </div>
                     `;
                 }
             } catch (error) {
-                console.error('Erreur détaillée:', error);
+                console.error('Erreur dÃ©taillÃ©e:', error);
                 
-                let errorMessage = 'Impossible de charger les données.';
+                let errorMessage = 'Impossible de charger les donnÃ©es.';
                 let errorDetails = error.message || '';
                 
                 if (error.message.includes('HTTP 404')) {
                     errorMessage = 'Fichier repairs.json introuvable sur GitHub.';
-                    errorDetails = 'Vérifiez que le fichier a bien été uploadé.';
+                    errorDetails = 'VÃ©rifiez que le fichier a bien Ã©tÃ© uploadÃ©.';
                 } else if (error.message.includes('JSON')) {
-                    errorMessage = 'Format de données invalide.';
+                    errorMessage = 'Format de donnÃ©es invalide.';
                     errorDetails = 'Le fichier repairs.json contient des erreurs.';
                 } else if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
-                    errorMessage = 'Problème de connexion.';
-                    errorDetails = 'Vérifiez votre connexion internet.';
+                    errorMessage = 'ProblÃ¨me de connexion.';
+                    errorDetails = 'VÃ©rifiez votre connexion internet.';
                 }
                 
                 content.innerHTML = `
                     <div class="error-message">
-                        <h2>⚠️ Erreur</h2>
+                        <h2>âš ï¸ Erreur</h2>
                         <p><strong>${errorMessage}</strong></p>
                         <p style="margin-top: 10px; font-size: 0.9em; color: #6c757d;">${errorDetails}</p>
-                        <p style="margin-top: 20px; color: #6c757d;">Veuillez réessayer dans quelques instants ou contactez-nous.</p>
-                        <p style="margin-top: 10px; color: #ff6b35; font-weight: bold;">📞 02 29 25 01 11</p>
+                        <p style="margin-top: 20px; color: #6c757d;">Veuillez rÃ©essayer dans quelques instants ou contactez-nous.</p>
+                        <p style="margin-top: 10px; color: #ff6b35; font-weight: bold;">ðŸ“ž 02 29 25 01 11</p>
                     </div>
                 `;
             }
         }
 
-        // Afficher les détails de la réparation
+        // Afficher les dÃ©tails de la rÃ©paration
         function displayRepair(repair) {
-            const statuses = ['Reçu', 'En cours', 'Terminé', 'Restitué'];
+            const statuses = ['ReÃ§u', 'En cours', 'TerminÃ©', 'RestituÃ©'];
             const statusIndex = statuses.indexOf(repair.status);
 
             let timeline = '';
             statuses.forEach((status, index) => {
-                let icon = '⏳';
+                let icon = 'â³';
                 let className = '';
                 let date = '';
 
                 if (index < statusIndex) {
-                    icon = '✅';
+                    icon = 'âœ…';
                     className = 'completed';
                 } else if (index === statusIndex) {
-                    icon = '🔄';
+                    icon = 'ðŸ”„';
                     className = 'active';
                 }
 
-                if (status === 'Reçu' && repair.receivedDate) {
+                if (status === 'ReÃ§u' && repair.receivedDate) {
                     date = formatDate(repair.receivedDate);
-                } else if (status === 'Terminé' && repair.completedDate) {
+                } else if (status === 'TerminÃ©' && repair.completedDate) {
                     date = formatDate(repair.completedDate);
-                } else if (status === 'Restitué' && repair.returnDate) {
+                } else if (status === 'RestituÃ©' && repair.returnDate) {
                     date = formatDate(repair.returnDate);
                 }
 
@@ -426,43 +426,43 @@
 
             const content = document.getElementById('content');
             content.innerHTML = `
-                <div class="auto-refresh">🔄 Mise à jour automatique toutes les 30 secondes</div>
+                <div class="auto-refresh">ðŸ”„ Mise Ã  jour automatique toutes les 30 secondes</div>
                 
                 <div class="info-card">
                     <div class="info-row">
-                        <span class="info-label">📋 Dossier</span>
+                        <span class="info-label">ðŸ“‹ Dossier</span>
                         <span class="info-value">#${repair.id}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">🔑 Code</span>
+                        <span class="info-label">ðŸ”‘ Code</span>
                         <span class="info-value">${repair.trackingCode}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">📱 Appareil</span>
+                        <span class="info-label">ðŸ“± Appareil</span>
                         <span class="info-value">${repair.deviceBrand || repair.deviceType}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">🔧 Panne</span>
+                        <span class="info-label">ðŸ”§ Panne</span>
                         <span class="info-value">${repair.problemType}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">📅 Reçu le</span>
+                        <span class="info-label">ðŸ“… ReÃ§u le</span>
                         <span class="info-value">${formatDate(repair.receivedDate)}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">💰 Prix</span>
-                        <span class="info-value"><span class="price-badge">${repair.finalPrice || repair.estimatedPrice || '0.00'} €</span></span>
+                        <span class="info-label">ðŸ’° Prix</span>
+                        <span class="info-value"><span class="price-badge">${repair.finalPrice || repair.estimatedPrice || '0.00'} â‚¬</span></span>
                     </div>
                 </div>
 
-                <h3 style="margin-bottom: 20px; color: #495057;">📍 État de votre réparation</h3>
+                <h3 style="margin-bottom: 20px; color: #495057;">ðŸ“ Ã‰tat de votre rÃ©paration</h3>
                 <div class="status-timeline">
                     ${timeline}
                 </div>
 
                 ${repair.technicianComments || repair.returnComments ? `
                     <div class="comments-box">
-                        <div class="comments-title">💬 Informations</div>
+                        <div class="comments-title">ðŸ’¬ Informations</div>
                         <div class="comments-text">
                             ${repair.technicianComments || ''}
                             ${repair.returnComments ? '<br>' + repair.returnComments : ''}
@@ -470,10 +470,10 @@
                     </div>
                 ` : ''}
 
-                ${repair.status === 'Terminé' ? `
+                ${repair.status === 'TerminÃ©' ? `
                     <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: center;">
-                        <h3 style="color: #155724; margin-bottom: 10px;">✅ Votre appareil est prêt !</h3>
-                        <p style="color: #155724;">Vous pouvez venir le récupérer à notre magasin.</p>
+                        <h3 style="color: #155724; margin-bottom: 10px;">âœ… Votre appareil est prÃªt !</h3>
+                        <p style="color: #155724;">Vous pouvez venir le rÃ©cupÃ©rer Ã  notre magasin.</p>
                     </div>
                 ` : ''}
             `;
