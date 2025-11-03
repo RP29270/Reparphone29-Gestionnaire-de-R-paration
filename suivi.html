@@ -327,11 +327,21 @@
                 const response = await fetch('repairs.json?t=' + new Date().getTime());
                 
                 if (!response.ok) {
-                    throw new Error('Erreur de chargement des données');
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                const repair = data.repairs.find(r => r.trackingCode === code || r.id.toString() === code);
+                
+                // Vérifier que repairs existe et est un tableau
+                if (!data.repairs || !Array.isArray(data.repairs)) {
+                    throw new Error('Format de données invalide');
+                }
+
+                const repair = data.repairs.find(r => {
+                    // Recherche par trackingCode OU par ID
+                    return (r.trackingCode && r.trackingCode === code) || 
+                           (r.id && r.id.toString() === code);
+                });
 
                 if (repair) {
                     displayRepair(repair);
@@ -343,15 +353,34 @@
                             <h2>❌ Code introuvable</h2>
                             <p>Aucune réparation ne correspond au code <strong>${code}</strong></p>
                             <p style="margin-top: 20px; color: #6c757d;">Vérifiez le code reçu par message ou contactez-nous.</p>
+                            <p style="margin-top: 10px; color: #6c757d; font-size: 0.9em;">📞 02 29 25 01 11</p>
                         </div>
                     `;
                 }
             } catch (error) {
+                console.error('Erreur détaillée:', error);
+                
+                let errorMessage = 'Impossible de charger les données.';
+                let errorDetails = error.message || '';
+                
+                if (error.message.includes('HTTP 404')) {
+                    errorMessage = 'Fichier repairs.json introuvable sur GitHub.';
+                    errorDetails = 'Vérifiez que le fichier a bien été uploadé.';
+                } else if (error.message.includes('JSON')) {
+                    errorMessage = 'Format de données invalide.';
+                    errorDetails = 'Le fichier repairs.json contient des erreurs.';
+                } else if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+                    errorMessage = 'Problème de connexion.';
+                    errorDetails = 'Vérifiez votre connexion internet.';
+                }
+                
                 content.innerHTML = `
                     <div class="error-message">
-                        <h2>⚠️ Erreur de connexion</h2>
-                        <p>Impossible de charger les données.</p>
-                        <p style="margin-top: 10px; font-size: 0.9em; color: #6c757d;">Veuillez réessayer dans quelques instants.</p>
+                        <h2>⚠️ Erreur</h2>
+                        <p><strong>${errorMessage}</strong></p>
+                        <p style="margin-top: 10px; font-size: 0.9em; color: #6c757d;">${errorDetails}</p>
+                        <p style="margin-top: 20px; color: #6c757d;">Veuillez réessayer dans quelques instants ou contactez-nous.</p>
+                        <p style="margin-top: 10px; color: #ff6b35; font-weight: bold;">📞 02 29 25 01 11</p>
                     </div>
                 `;
             }
