@@ -1,67 +1,21 @@
 {
   "repairs": [
     {
-      "id": 8,
-      "trackingCode": "REP2025-009-BS1QOO",
-      "clientName": "horri",
+      "id": 1,
+      "trackingCode": "ABC123",
+      "clientName": "Client Test",
       "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Récupération de données",
+      "deviceBrand": "iPhone 13",
+      "problemType": "Écran cassé",
       "status": "En cours",
-      "receivedDate": "2025-11-02T23:02",
+      "receivedDate": "2024-11-02T10:00:00.000Z",
       "completedDate": null,
       "returnDate": null,
-      "estimatedPrice": "90",
+      "estimatedPrice": "89.00",
       "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
-      "id": 7,
-      "trackingCode": "REP2025-008-M6LQ2Z",
-      "clientName": "horri",
-      "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Réseau GSM",
-      "status": "Reçu",
-      "receivedDate": "2025-11-02T22:51",
-      "completedDate": null,
-      "returnDate": null,
-      "estimatedPrice": "90",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
-      "id": 6,
-      "clientName": "dcwxcwx",
-      "deviceType": "Tablette",
-      "deviceBrand": "",
-      "problemType": "Micro",
-      "status": "Reçu",
-      "receivedDate": "2025-11-02T04:20",
-      "completedDate": null,
-      "returnDate": null,
-      "estimatedPrice": "50",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
-      "id": 5,
-      "clientName": "qsxqsx",
-      "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Oxydation",
-      "status": "Reçu",
-      "receivedDate": "2025-11-02T03:18",
-      "completedDate": null,
-      "returnDate": null,
-      "estimatedPrice": "60",
-      "finalPrice": "",
-      "technicianComments": "",
+      "technicianComments": "Écran commandé, livraison prévue demain",
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-03T00:18:02.162Z"
+  "lastUpdate": "2024-11-03T12:00:00.000Z"
 }
