@@ -1,0 +1,37 @@
+{
+  "repairs": [
+    {
+      "id": 8,
+      "trackingCode": "REP2025-009-BS1QOO",
+      "clientName": "horri",
+      "deviceType": "Smartphone",
+      "deviceBrand": "",
+      "problemType": "Récupération de données",
+      "status": "En cours",
+      "receivedDate": "2025-11-02T23:02",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "90",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    },
+    {
+      "id": 7,
+      "trackingCode": "REP2025-008-M6LQ2Z",
+      "clientName": "horri",
+      "deviceType": "Smartphone",
+      "deviceBrand": "",
+      "problemType": "Réseau GSM",
+      "status": "Reçu",
+      "receivedDate": "2025-11-02T22:51",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "90",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    }
+  ],
+  "lastUpdate": "2025-11-03T00:43:28.184Z"
+}
