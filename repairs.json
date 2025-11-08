@@ -7,9 +7,9 @@
       "deviceType": "Smartphone",
       "deviceBrand": "",
       "problemType": "Batterie",
-      "status": "Reçu",
+      "status": "Terminé",
       "receivedDate": "2025-11-08T11:36",
-      "completedDate": null,
+      "completedDate": "2025-11-08T11:32:34.403Z",
       "returnDate": null,
       "estimatedPrice": "99",
       "finalPrice": "",
@@ -49,5 +49,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-08T11:29:56.348Z"
+  "lastUpdate": "2025-11-08T11:32:34.411Z"
 }
