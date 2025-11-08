@@ -1,6 +1,22 @@
 {
   "repairs": [
     {
+      "id": 5,
+      "trackingCode": "REP2025-006-TS7PFA",
+      "clientName": "Ben c.",
+      "deviceType": "Smartphone",
+      "deviceBrand": "",
+      "problemType": "Batterie",
+      "status": "Reçu",
+      "receivedDate": "2025-11-08T11:36",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "99",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    },
+    {
       "id": 4,
       "trackingCode": "REP2025-005-CTYLGR",
       "clientName": "Ferdjani A.",
@@ -33,5 +49,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-08T11:25:50.627Z"
+  "lastUpdate": "2025-11-08T11:29:56.348Z"
 }
