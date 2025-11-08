@@ -7,9 +7,9 @@
       "deviceType": "Smartphone",
       "deviceBrand": "",
       "problemType": "Réseau GSM",
-      "status": "Reçu",
+      "status": "Terminé",
       "receivedDate": "2025-11-08T01:55",
-      "completedDate": null,
+      "completedDate": "2025-11-08T01:07:56.975Z",
       "returnDate": null,
       "estimatedPrice": "52",
       "finalPrice": "",
@@ -97,5 +97,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-08T01:02:35.597Z"
+  "lastUpdate": "2025-11-08T01:19:07.158Z"
 }
