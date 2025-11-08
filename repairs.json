@@ -1,21 +1,21 @@
 {
   "repairs": [
     {
-      "id": 3,
-      "trackingCode": "REP2025-004-GYJ40J",
+      "id": 1,
+      "trackingCode": "REP2025-002-QU4ANC",
       "clientName": "horri",
       "deviceType": "Smartphone",
       "deviceBrand": "",
-      "problemType": "Réseau GSM",
-      "status": "Reçu",
-      "receivedDate": "2025-11-08T23:13",
-      "completedDate": null,
+      "problemType": "Caméra arrière",
+      "status": "En cours",
+      "receivedDate": "2025-11-08T22:52",
+      "completedDate": "2025-11-08T22:31:41.839Z",
       "returnDate": null,
-      "estimatedPrice": "52",
+      "estimatedPrice": "60",
       "finalPrice": "",
       "technicianComments": "",
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-08T22:15:31.944Z"
+  "lastUpdate": "2025-11-08T22:32:13.025Z"
 }
