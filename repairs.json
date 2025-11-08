@@ -1,6 +1,22 @@
 {
   "repairs": [
     {
+      "id": 13,
+      "trackingCode": "REP2025-014-C14WUJ",
+      "clientName": "horri",
+      "deviceType": "Smartphone",
+      "deviceBrand": "",
+      "problemType": "Haut parleur",
+      "status": "Reçu",
+      "receivedDate": "2025-11-08T02:35",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "90",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    },
+    {
       "id": 12,
       "trackingCode": "REP2025-013-BWXD4R",
       "clientName": "horri",
@@ -97,5 +113,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-08T01:33:37.143Z"
+  "lastUpdate": "2025-11-08T01:36:21.683Z"
 }
