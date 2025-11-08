@@ -1,53 +1,21 @@
 {
   "repairs": [
     {
-      "id": 5,
-      "trackingCode": "REP2025-006-TS7PFA",
-      "clientName": "Ben c.",
-      "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Batterie",
-      "status": "Terminé",
-      "receivedDate": "2025-11-08T11:36",
-      "completedDate": "2025-11-08T11:32:34.403Z",
-      "returnDate": null,
-      "estimatedPrice": "99",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
-      "id": 4,
-      "trackingCode": "REP2025-005-CTYLGR",
-      "clientName": "Ferdjani A.",
-      "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Batterie",
-      "status": "En cours",
-      "receivedDate": "2025-11-08T11:16",
-      "completedDate": null,
-      "returnDate": null,
-      "estimatedPrice": "99",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
       "id": 3,
-      "trackingCode": "REP2025-004-AH3GEX",
-      "clientName": "Hori",
+      "trackingCode": "REP2025-004-GYJ40J",
+      "clientName": "horri",
       "deviceType": "Smartphone",
       "deviceBrand": "",
-      "problemType": "WiFi",
-      "status": "En cours",
-      "receivedDate": "2025-11-03T15:56",
+      "problemType": "Réseau GSM",
+      "status": "Reçu",
+      "receivedDate": "2025-11-08T23:13",
       "completedDate": null,
       "returnDate": null,
-      "estimatedPrice": "89",
+      "estimatedPrice": "52",
       "finalPrice": "",
       "technicianComments": "",
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-08T11:32:34.411Z"
+  "lastUpdate": "2025-11-08T22:15:31.944Z"
 }
