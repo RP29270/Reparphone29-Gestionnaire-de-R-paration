@@ -7,9 +7,9 @@
       "deviceType": "Smartphone",
       "deviceBrand": "",
       "problemType": "Haut parleur",
-      "status": "En cours",
+      "status": "Terminé",
       "receivedDate": "2025-11-08T02:35",
-      "completedDate": null,
+      "completedDate": "2025-11-08T01:44:04.935Z",
       "returnDate": null,
       "estimatedPrice": "90",
       "finalPrice": "",
@@ -113,5 +113,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-08T01:41:43.680Z"
+  "lastUpdate": "2025-11-08T01:44:04.941Z"
 }
