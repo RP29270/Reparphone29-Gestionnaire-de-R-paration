@@ -1,15 +1,31 @@
 {
   "repairs": [
     {
+      "id": 1,
+      "trackingCode": "REP2025-002-V1YT8Z",
+      "clientName": "Horri",
+      "deviceType": "Ordinateur de Bureau",
+      "deviceBrand": "",
+      "problemType": "Écran",
+      "status": "Reçu",
+      "receivedDate": "2025-11-09T04:04",
+      "completedDate": null,
+      "returnDate": null,
+      "estimatedPrice": "60",
+      "finalPrice": "",
+      "technicianComments": "",
+      "returnComments": ""
+    },
+    {
       "id": 3,
       "trackingCode": "REP2025-004-R4RYDF",
       "clientName": "issam",
       "deviceType": "Tablette",
       "deviceBrand": "",
       "problemType": "Oxydation",
-      "status": "Terminé",
+      "status": "Reçu",
       "receivedDate": "2025-11-09T00:31",
-      "completedDate": "2025-11-09T03:03:02.753Z",
+      "completedDate": null,
       "returnDate": null,
       "estimatedPrice": "90",
       "finalPrice": "",
@@ -33,5 +49,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-09T03:03:02.757Z"
+  "lastUpdate": "2025-11-09T03:21:18.160Z"
 }
