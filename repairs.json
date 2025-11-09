@@ -7,7 +7,7 @@
       "deviceType": "Ordinateur de Bureau",
       "deviceBrand": "",
       "problemType": "Écran",
-      "status": "Reçu",
+      "status": "En cours",
       "receivedDate": "2025-11-09T04:04",
       "completedDate": null,
       "returnDate": null,
@@ -15,39 +15,7 @@
       "finalPrice": "",
       "technicianComments": "",
       "returnComments": ""
-    },
-    {
-      "id": 3,
-      "trackingCode": "REP2025-004-R4RYDF",
-      "clientName": "issam",
-      "deviceType": "Tablette",
-      "deviceBrand": "",
-      "problemType": "Oxydation",
-      "status": "Reçu",
-      "receivedDate": "2025-11-09T00:31",
-      "completedDate": null,
-      "returnDate": null,
-      "estimatedPrice": "90",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
-      "id": 2,
-      "trackingCode": "REP2025-003-Z39W9P",
-      "clientName": "horri",
-      "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Réseau GSM",
-      "status": "Reçu",
-      "receivedDate": "2025-11-09T00:04",
-      "completedDate": null,
-      "returnDate": null,
-      "estimatedPrice": "150",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-09T03:21:18.160Z"
+  "lastUpdate": "2025-11-09T03:21:48.477Z"
 }
