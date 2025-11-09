@@ -7,7 +7,7 @@
       "deviceType": "Tablette",
       "deviceBrand": "",
       "problemType": "Oxydation",
-      "status": "Reçu",
+      "status": "En cours",
       "receivedDate": "2025-11-09T00:31",
       "completedDate": null,
       "returnDate": null,
@@ -33,5 +33,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-09T03:02:18.937Z"
+  "lastUpdate": "2025-11-09T03:02:35.830Z"
 }
