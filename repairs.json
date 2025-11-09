@@ -1,53 +1,13 @@
-{
-  "repairs": [
-    {
-      "id": 3,
-      "trackingCode": "REP2025-004-R4RYDF",
-      "clientName": "issam",
-      "deviceType": "Tablette",
-      "deviceBrand": "",
-      "problemType": "Oxydation",
-      "status": "En cours",
-      "receivedDate": "2025-11-09T00:31",
-      "completedDate": "2025-11-08T23:56:51.558Z",
-      "returnDate": null,
-      "estimatedPrice": "90",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
-      "id": 2,
-      "trackingCode": "REP2025-003-Z39W9P",
-      "clientName": "horri",
-      "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Réseau GSM",
-      "status": "Terminé",
-      "receivedDate": "2025-11-09T00:04",
-      "completedDate": "2025-11-09T00:22:03.321Z",
-      "returnDate": null,
-      "estimatedPrice": "150",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    },
-    {
-      "id": 1,
-      "trackingCode": "REP2025-002-QU4ANC",
-      "clientName": "horri",
-      "deviceType": "Smartphone",
-      "deviceBrand": "",
-      "problemType": "Caméra arrière",
-      "status": "En cours",
-      "receivedDate": "2025-11-08T22:52",
-      "completedDate": "2025-11-08T22:31:41.839Z",
-      "returnDate": null,
-      "estimatedPrice": "60",
-      "finalPrice": "",
-      "technicianComments": "",
-      "returnComments": ""
-    }
-  ],
-  "lastUpdate": "2025-11-09T01:58:26.734Z"
-}
+[
+  {
+    "trackingCode": "REP2024-001-ABC123",
+    "clientName": "Jean Dupont",
+    "brand": "Apple",
+    "model": "iPhone 12",
+    "status": "En réparation",
+    "issue": "Écran cassé",
+    "receivedDate": "2025-11-09",
+    "price": 150,
+    "currency": "€"
+  }
+]
