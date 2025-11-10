@@ -2,16 +2,16 @@
   "repairs": [
     {
       "id": 2,
-      "trackingCode": "REP2025-003-8YXFEY",
-      "clientName": "samantha H.",
+      "trackingCode": "REP2025-003-Z39W9P",
+      "clientName": "horri",
       "deviceType": "Smartphone",
       "deviceBrand": "",
-      "problemType": "Écouteur interne",
-      "status": "Reçu",
-      "receivedDate": "2025-11-10T01:56",
+      "problemType": "Réseau GSM",
+      "status": "En cours",
+      "receivedDate": "2025-11-09T00:04",
       "completedDate": null,
       "returnDate": null,
-      "estimatedPrice": "",
+      "estimatedPrice": "150",
       "finalPrice": "",
       "technicianComments": "",
       "returnComments": ""
@@ -65,5 +65,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-10T00:57:20.289Z"
+  "lastUpdate": "2025-11-10T01:09:45.605Z"
 }
