@@ -2,8 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivi de Réparation - Reparphone29</title>
+    <title>Suivi de RÃ©paration - Reparphone29</title>
     <style>
         * {
             margin: 0;
@@ -60,22 +61,10 @@
             border-radius: 50%;
         }
 
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 20px;
-            background: white;
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo svg {
-            width: 80px;
-            height: 80px;
+        header p {
+            opacity: 0.95;
+            font-size: 1em;
+            font-weight: 500;
         }
 
         header h1 {
@@ -83,12 +72,6 @@
             margin-bottom: 8px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        header p {
-            opacity: 0.95;
-            font-size: 1em;
-            font-weight: 500;
         }
 
         .search-section {
@@ -527,68 +510,79 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 394.98 348.04">
-                    <g><g><path d="M84.4,232.64l9.85-1.64c0-.4-.17-.71-.52-.93s-.8-.34-1.34-.34h-8.39c-.82,0-1.38.28-1.68.84-.3.56-.44,1.32-.41,2.29v2.65c0,.85.15,1.54.47,2.09.31.55.9.82,1.77.82h13.06v4.96h-14.55c-1.17,0-2.21-.27-3.13-.82-.92-.55-1.65-1.29-2.2-2.24-.55-.94-.83-2-.86-3.17v-7.13c.02-1.04.33-1.97.91-2.78.58-.81,1.33-1.42,2.24-1.85.91-.42,1.83-.63,2.78-.63h11.6c.94,0,1.87.21,2.78.63.91.42,1.65,1.04,2.24,1.85.58.81.89,1.73.91,2.78l.04,1.01c0,2.34-1.08,3.64-3.25,3.92l-12.31,1.87v-4.18Z" fill="#ff6b35"/></g></g>
-                </svg>
-            </div>
-            <h1>🔧 REPARPHONE29</h1>
-            <p>Suivez votre réparation en temps réel</p>
+            <h1>ðŸ”§ REPARPHONE29</h1>
+            <p>Suivez votre rÃ©paration en temps rÃ©el</p>
         </header>
 
         <div class="search-section">
             <div class="search-box">
                 <input type="text" id="trackingCode" placeholder="Entrez votre code de suivi (ex: REP2025-001-ABC123)" autocomplete="off">
-                <button onclick="searchRepair()">🔍 Suivre</button>
+                <button onclick="searchRepair()">ðŸ” Suivre</button>
             </div>
         </div>
 
         <div class="content" id="content">
             <div class="loading" id="initialMessage">
-                <h3>👋 Bienvenue chez Reparphone29</h3>
-                <p>Entrez votre code de suivi pour découvrir l'avancement de votre réparation.</p>
+                <h3>ðŸ‘‹ Bienvenue chez Reparphone29</h3>
+                <p>Entrez votre code de suivi pour dÃ©couvrir l'avancement de votre rÃ©paration.</p>
             </div>
 
             <div class="promo-banner">
-                <h3>🛠️ Réparation • Vente • Rachat</h3>
-                <p>Smartphones • Tablettes • Ordinateurs<br>Expertise, qualité et confiance garanties</p>
+                <h3>ðŸ› ï¸ RÃ©paration â€¢ Vente â€¢ Rachat</h3>
+                <p>Smartphones â€¢ Tablettes â€¢ Ordinateurs<br>Expertise, qualitÃ© et confiance garanties</p>
             </div>
         </div>
 
         <footer>
-            <p><strong>REPARPHONE29</strong> - Le spécialiste des 3R</p>
-            <p>📍 12 Rue Oberhausen, 29270 Carhaix-Plouguer</p>
-            <p>📞 02 29 25 01 11 | 📱 06 45 06 55 15</p>
+            <p><strong>REPARPHONE29</strong> - Le spÃ©cialiste des 3R</p>
+            <p>ðŸ“ 12 Rue Oberhausen, 29270 Carhaix-Plouguer</p>
+            <p>ðŸ“ž 02 29 25 01 11 | ðŸ“± 06 45 06 55 15</p>
         </footer>
     </div>
 
-    <a href="https://wa.me/33645065515?text=Bonjour%2C%20j%27ai%20besoin%20d%27aide%20concernant%20ma%20r%C3%A9paration" target="_blank" class="whatsapp-btn" title="Discuter sur WhatsApp">💬</a>
+    <a href="https://wa.me/33645065515?text=Bonjour%2C%20j%27ai%20besoin%20d%27aide%20concernant%20ma%20r%C3%A9paration" target="_blank" class="whatsapp-btn" title="Discuter sur WhatsApp">ðŸ’¬</a>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <script>
-        // Messages doux et accueillants pour chaque étape
+        // ðŸ”¥ Configuration Firebase (MÃŠME que ton index.html)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDhBkj7Z5TqK8xYvA9pP2lMnO3qRsT4uVw",
+            authDomain: "rp29-b314d.firebaseapp.com",
+            projectId: "rp29-b314d",
+            storageBucket: "rp29-b314d.firebasestorage.app",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef123456"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Messages doux et accueillants pour chaque Ã©tape
         const statusMessages = {
-            'Reçu': "Merci ! Nous avons bien reçu votre appareil. Notre équipe commence le diagnostic.",
-            'En cours': "Votre appareil est entre de bonnes mains. Notre technicien travaille pour le remettre en état.",
-            'Terminé': "Excellente nouvelle ! Votre appareil est réparé et prêt à vous être restitué.",
-            'Restitué': "Merci de votre confiance ! N'hésitez pas à nous contacter pour tout besoin futur."
+            'ReÃ§u': "Merci ! Nous avons bien reÃ§u votre appareil. Notre Ã©quipe commence le diagnostic.",
+            'En cours': "Votre appareil est entre de bonnes mains. Notre technicien travaille pour le remettre en Ã©tat.",
+            'TerminÃ©': "Excellente nouvelle ! Votre appareil est rÃ©parÃ© et prÃªt Ã  vous Ãªtre restituÃ©.",
+            'RestituÃ©': "Merci de votre confiance ! N'hÃ©sitez pas Ã  nous contacter pour tout besoin futur."
         };
 
         const statusIcons = {
-            'Reçu': '📦',
-            'En cours': '🔧',
-            'Terminé': '✅',
-            'Restitué': '🎉'
+            'ReÃ§u': 'ðŸ“¦',
+            'En cours': 'ðŸ”§',
+            'TerminÃ©': 'âœ…',
+            'RestituÃ©': 'ðŸŽ‰'
         };
 
         // Horaires d'ouverture
         const hours = [
-            { day: 'Lundi', time: '13h - 19h' },
-            { day: 'Mardi à Vendredi', time: '9h - 12h30 • 13h45 - 19h' },
+            { day: 'Lundi', time: '14h - 19h' },
+            { day: 'Mardi Ã  Vendredi', time: '9h - 12h30 â€¢ 13h45 - 19h' },
             { day: 'Samedi', time: '9h - 13h' },
-            { day: 'Dimanche', time: 'Fermé' }
+            { day: 'Dimanche', time: 'FermÃ©' }
         ];
 
-        // Récupérer le code depuis l'URL au chargement
+        // RÃ©cupÃ©rer le code depuis l'URL au chargement
         window.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
@@ -603,57 +597,60 @@
             const code = document.getElementById('trackingCode').value.trim().toUpperCase();
             
             if (!code) {
-                alert('⚠️ Veuillez entrer un code de suivi');
+                alert('âš ï¸ Veuillez entrer un code de suivi');
                 return;
             }
 
             const content = document.getElementById('content');
-            content.innerHTML = '<div class="loading">🔍 Recherche en cours...</div>';
+            content.innerHTML = '<div class="loading">ðŸ” Recherche en cours...</div>';
 
             try {
-                const response = await fetch('repairs.json?t=' + new Date().getTime());
+                // âœ… NOUVEAU : Chercher dans Firestore au lieu de repairs.json
+                const snapshot = await db.collection('repairs')
+                    .where('trackingCode', '==', code)
+                    .limit(1)
+                    .get();
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (!data.repairs || !Array.isArray(data.repairs)) {
-                    throw new Error('Format invalide');
-                }
-
-                const repair = data.repairs.find(r => 
-                    (r.trackingCode && r.trackingCode.toUpperCase() === code) || 
-                    (r.id && r.id.toString() === code)
-                );
-
-                if (repair) {
+                if (!snapshot.empty) {
+                    // RÃ©paration trouvÃ©e !
+                    const repair = snapshot.docs[0].data();
                     displayRepair(repair);
-                    setTimeout(() => searchRepair(), 30000);
+                    
+                    // âœ… BONUS : Ã‰couter les modifications EN TEMPS RÃ‰EL
+                    db.collection('repairs')
+                        .where('trackingCode', '==', code)
+                        .onSnapshot(updatedSnapshot => {
+                            if (!updatedSnapshot.empty) {
+                                const updatedRepair = updatedSnapshot.docs[0].data();
+                                displayRepair(updatedRepair);
+                                console.log('ðŸ”„ Mise Ã  jour temps rÃ©el reÃ§ue !');
+                            }
+                        });
+                        
                 } else {
                     content.innerHTML = `
                         <div class="error-message">
-                            <h2>❌ Code non trouvé</h2>
-                            <p>Nous n'avons pas pu trouver de réparation correspondant au code <strong>${code}</strong></p>
-                            <p>Veuillez vérifier le code reçu par message.</p>
+                            <h2>âŒ Code non trouvÃ©</h2>
+                            <p>Nous n'avons pas pu trouver de rÃ©paration correspondant au code <strong>${code}</strong></p>
+                            <p>Veuillez vÃ©rifier le code reÃ§u par message.</p>
                             <div class="contact-info">
                                 <p>Des questions ? Contactez-nous :</p>
-                                <p><strong>📞 02 29 25 01 11</strong></p>
-                                <p>Ou via WhatsApp en cliquant le bouton vert en bas à droite</p>
+                                <p><strong>ðŸ“ž 02 29 25 01 11</strong></p>
+                                <p>Ou via WhatsApp en cliquant le bouton vert en bas Ã  droite</p>
                             </div>
                         </div>
                     `;
                 }
             } catch (error) {
+                console.error('Erreur Firestore:', error);
                 content.innerHTML = `
                     <div class="error-message">
-                        <h2>⚠️ Erreur de connexion</h2>
-                        <p>Nous n'avons pas pu accéder aux données.</p>
-                        <p>Veuillez réessayer dans quelques instants.</p>
+                        <h2>âš ï¸ Erreur de connexion</h2>
+                        <p>Nous n'avons pas pu accÃ©der aux donnÃ©es.</p>
+                        <p>Veuillez rÃ©essayer dans quelques instants.</p>
                         <div class="contact-info">
-                            <p>Besoin d'aide immédiate ?</p>
-                            <p><strong>📞 02 29 25 01 11</strong></p>
+                            <p>Besoin d'aide immÃ©diate ?</p>
+                            <p><strong>ðŸ“ž 02 29 25 01 11</strong></p>
                         </div>
                     </div>
                 `;
@@ -661,7 +658,7 @@
         }
 
         function displayRepair(repair) {
-            const statuses = ['Reçu', 'En cours', 'Terminé', 'Restitué'];
+            const statuses = ['ReÃ§u', 'En cours', 'TerminÃ©', 'RestituÃ©'];
             const statusIndex = statuses.indexOf(repair.status);
 
             let timeline = '';
@@ -675,27 +672,27 @@
                     className = 'active';
                 }
 
-                if (status === 'Reçu' && repair.receivedDate) {
+                if (status === 'ReÃ§u' && repair.receivedDate) {
                     date = formatDate(repair.receivedDate);
-                } else if (status === 'Terminé' && repair.completedDate) {
+                } else if (status === 'TerminÃ©' && repair.completedDate) {
                     date = formatDate(repair.completedDate);
-                } else if (status === 'Restitué' && repair.returnDate) {
+                } else if (status === 'RestituÃ©' && repair.returnDate) {
                     date = formatDate(repair.returnDate);
                 }
 
                 timeline += `
                     <div class="status-step ${className}">
-                        <div class="status-icon">${statusIcons[status] || '⏳'}</div>
+                        <div class="status-icon">${statusIcons[status] || 'â³'}</div>
                         <div class="status-info">
                             <div class="status-title">${status}</div>
-                            ${date ? `<div class="status-date">📅 ${date}</div>` : ''}
+                            ${date ? `<div class="status-date">ðŸ“… ${date}</div>` : ''}
                             <div class="status-message">${statusMessages[status]}</div>
                         </div>
                     </div>
                 `;
             });
 
-            let hoursHTML = '<div class="hours-box"><div class="hours-title">⏰ Nos horaires</div>';
+            let hoursHTML = '<div class="hours-box"><div class="hours-title">â° Nos horaires</div>';
             hours.forEach(h => {
                 hoursHTML += `<div class="hours-item"><span>${h.day}</span><strong>${h.time}</strong></div>`;
             });
@@ -704,45 +701,45 @@
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div class="promo-banner">
-                    <h3>🛠️ Réparation • Vente • Rachat</h3>
-                    <p>Smartphones • Tablettes • Ordinateurs</p>
+                    <h3>ðŸ› ï¸ RÃ©paration â€¢ Vente â€¢ Rachat</h3>
+                    <p>Smartphones â€¢ Tablettes â€¢ Ordinateurs</p>
                 </div>
 
                 <div class="info-card">
                     <div class="info-row">
-                        <span class="info-label">📋 Dossier</span>
+                        <span class="info-label">ðŸ“‹ Dossier</span>
                         <span class="info-value">#${repair.id}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">🔑 Code de suivi</span>
+                        <span class="info-label">ðŸ”‘ Code de suivi</span>
                         <span class="info-value"><strong>${repair.trackingCode}</strong></span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">📱 Appareil</span>
+                        <span class="info-label">ðŸ“± Appareil</span>
                         <span class="info-value">${repair.deviceBrand || repair.deviceType}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">🔧 Problème</span>
+                        <span class="info-label">ðŸ”§ ProblÃ¨me</span>
                         <span class="info-value">${repair.problemType}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">📅 Reçu le</span>
+                        <span class="info-label">ðŸ“… ReÃ§u le</span>
                         <span class="info-value">${formatDate(repair.receivedDate)}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">💰 Tarif</span>
-                        <span class="info-value"><span class="price-badge">${repair.finalPrice || repair.estimatedPrice || '0.00'} €</span></span>
+                        <span class="info-label">ðŸ’° Tarif</span>
+                        <span class="info-value"><span class="price-badge">${repair.finalPrice || repair.estimatedPrice || '0.00'} â‚¬</span></span>
                     </div>
                 </div>
 
-                <h2 style="margin-bottom: 25px; color: #ff6b35; font-size: 1.3em;">📍 Avancement de votre réparation</h2>
+                <h2 style="margin-bottom: 25px; color: #ff6b35; font-size: 1.3em;">ðŸ“ Avancement de votre rÃ©paration</h2>
                 <div class="status-timeline">
                     ${timeline}
                 </div>
 
                 ${repair.technicianComments || repair.returnComments ? `
                     <div class="comments-box">
-                        <div class="comments-title">💬 Notes techniques</div>
+                        <div class="comments-title">ðŸ’¬ Notes techniques</div>
                         <div class="comments-text">
                             ${repair.technicianComments || ''}
                             ${repair.returnComments ? '<br><br>' + repair.returnComments : ''}
@@ -750,10 +747,10 @@
                     </div>
                 ` : ''}
 
-                ${repair.status === 'Terminé' ? `
+                ${repair.status === 'TerminÃ©' ? `
                     <div class="ready-box">
-                        <h3>✨ Votre appareil est prêt !</h3>
-                        <p>Nous vous attendons pour le récupérer à notre magasin.</p>
+                        <h3>âœ¨ Votre appareil est prÃªt !</h3>
+                        <p>Nous vous attendons pour le rÃ©cupÃ©rer Ã  notre magasin.</p>
                     </div>
                 ` : ''}
 
@@ -761,8 +758,8 @@
 
                 <div class="contact-info">
                     <p><strong>Besoin d'aide ?</strong></p>
-                    <p>📞 02 29 25 01 11 | 📱 06 45 06 55 15</p>
-                    <p>💬 Message WhatsApp (bouton vert en bas à droite)</p>
+                    <p>ðŸ“ž 02 29 25 01 11 | ðŸ“± 06 45 06 55 15</p>
+                    <p>ðŸ’¬ Message WhatsApp (bouton vert en bas Ã  droite)</p>
                 </div>
             `;
         }
