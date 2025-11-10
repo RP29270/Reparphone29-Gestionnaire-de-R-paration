@@ -7,9 +7,9 @@
       "deviceType": "Smartphone",
       "deviceBrand": "",
       "problemType": "Réseau GSM",
-      "status": "En cours",
+      "status": "Reçu",
       "receivedDate": "2025-11-09T00:04",
-      "completedDate": "2025-11-10T01:10:49.473Z",
+      "completedDate": null,
       "returnDate": null,
       "estimatedPrice": "150",
       "finalPrice": "",
@@ -23,7 +23,7 @@
       "deviceType": "Ordinateur de Bureau",
       "deviceBrand": "",
       "problemType": "Écran",
-      "status": "Reçu",
+      "status": "En cours",
       "receivedDate": "2025-11-09T04:04",
       "completedDate": null,
       "returnDate": null,
@@ -39,7 +39,7 @@
       "deviceType": "Tablette",
       "deviceBrand": "",
       "problemType": "Oxydation",
-      "status": "En cours",
+      "status": "Reçu",
       "receivedDate": "2025-11-09T00:31",
       "completedDate": null,
       "returnDate": null,
@@ -65,5 +65,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-10T01:19:09.768Z"
+  "lastUpdate": "2025-11-10T01:19:47.282Z"
 }
