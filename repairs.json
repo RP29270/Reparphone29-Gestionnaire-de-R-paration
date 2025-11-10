@@ -7,7 +7,7 @@
       "deviceType": "Smartphone",
       "deviceBrand": "",
       "problemType": "Micro",
-      "status": "Reçu",
+      "status": "En cours",
       "receivedDate": "2025-11-10T01:17",
       "completedDate": null,
       "returnDate": null,
@@ -65,5 +65,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-10T00:22:45.634Z"
+  "lastUpdate": "2025-11-10T00:30:53.661Z"
 }
