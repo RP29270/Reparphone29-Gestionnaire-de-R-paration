@@ -23,7 +23,7 @@
       "deviceType": "Ordinateur de Bureau",
       "deviceBrand": "",
       "problemType": "Écran",
-      "status": "En cours",
+      "status": "Reçu",
       "receivedDate": "2025-11-09T04:04",
       "completedDate": null,
       "returnDate": null,
@@ -65,5 +65,5 @@
       "returnComments": ""
     }
   ],
-  "lastUpdate": "2025-11-10T01:19:52.281Z"
+  "lastUpdate": "2025-11-10T01:22:06.070Z"
 }
